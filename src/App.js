@@ -1,33 +1,42 @@
 import React, { Component } from 'react';
 import base from "./base"
 import restaurantsList from "./restaurantsList";
+import AddRestaurantForm from "./components/AddRestaurantForm";
+import AllRestaurants from "./components/AllRestaurants";
+import NewRestaurants from "./components/NewRestaurants";
+import TodaysSpecials from "./components/TodaysSpecials";
 import './App.css';
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      restaurantsList: {}
+      restaurantsList: {},
+      showAllRestaurants: false,
+      showTodaysSpecials: false,
+      showNewRestaurants: false
     };
 
     // Bind methods:
     this.getCurrentWeekday = this.getCurrentWeekday.bind(this);
     this.filterTodaysSpecials = this.filterTodaysSpecials.bind(this);
     this.formatTodaysSpecials = this.formatTodaysSpecials.bind(this);
-    this.randomListFromArray = this.randomListFromArray.bind(this);
-    this.mapNewRestaurants = this.mapNewRestaurants.bind(this);
-    this.displayResults = this.displayResults.bind(this);
+    //this.randomListFromArray = this.randomListFromArray.bind(this);
+    //this.mapNewRestaurants = this.mapNewRestaurants.bind(this);
+    //this.displayResults = this.displayResults.bind(this);
     this.getTodaysSpecials = this.getTodaysSpecials.bind(this);
-    this.getNewRestaurants = this.getNewRestaurants.bind(this);
+    //this.getNewRestaurants = this.getNewRestaurants.bind(this);
+    //this.showAllRestaurants = this.showAllRestaurants.bind(this);
     this.addRestaurant = this.addRestaurant.bind(this);
-    this.addNewSubmit = this.addNewSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentWillMount() {
+    // syncs state with firebase data
     base.syncState("restaurants", {
       context: this,
       state: "restaurantsList"
-    });    
+    });
   }
 
   // Get current day of week
@@ -78,45 +87,45 @@ class App extends Component {
     return html;
   }
 
-  // Randomize list
-  randomListFromArray(array, limit) {
-    // Random Item from an Array, with no repeats
-    const list = [];
-    let timeout = 0;
-    const attemptAddRandom = function() {
-      timeout++;
-      let candidate = array[Math.floor(Math.random() * array.length)];
-      if (list.indexOf(candidate) === -1) {
-        list.push(candidate);
-      }
+  // // Randomize list
+  // randomListFromArray(array, limit) {
+  //   // Random Item from an Array, with no repeats
+  //   const list = [];
+  //   let timeout = 0;
+  //   const attemptAddRandom = function() {
+  //     timeout++;
+  //     let candidate = array[Math.floor(Math.random() * array.length)];
+  //     if (list.indexOf(candidate) === -1) {
+  //       list.push(candidate);
+  //     }
 
-      if (list.length < limit) {
-        if (timeout < 300) {
-          attemptAddRandom();
-        }
-      }
-    };
+  //     if (list.length < limit) {
+  //       if (timeout < 300) {
+  //         attemptAddRandom();
+  //       }
+  //     }
+  //   };
 
-    attemptAddRandom();
-    return list;
-  }
+  //   attemptAddRandom();
+  //   return list;
+  // }
 
   // Map new restaurant data
-  mapNewRestaurants(data) {
-    let html = "";
-    for (let i = 0; i < data.length; i++) {
-      html += `<p><a href="${data[i].website}" target="_blank">${data[i]
-        .restaurantName}</a></p>`;
-    }
-    return html;
-  }
+  // mapNewRestaurants(data) {
+  //   let html = "";
+  //   for (let i = 0; i < data.length; i++) {
+  //     html += `<p><a href="${data[i].website}" target="_blank">${data[i]
+  //       .restaurantName}</a></p>`;
+  //   }
+  //   return html;
+  // }
 
-  // Display our results
-  displayResults(data) {
-    const results = document.getElementById("results");
-    // display new results
-    results.innerHTML = data;
-  }
+  // // Display our results
+  // displayResults(data) {
+  //   const results = document.getElementById("results");
+  //   // display new results
+  //   results.innerHTML = data;
+  // }
 
   // User clicks specials button, we should return all restaurants with a special matching the day of the week
   getTodaysSpecials(e) {
@@ -130,20 +139,20 @@ class App extends Component {
   }
 
   // User clicks new button, we should randomly return 3 restaurant options to pick from
-  getNewRestaurants(e) {
-    // randomize the array and return 3 options
-    const newrestaurantsList = restaurantsList.filter(function(restaurant) {
-      return !restaurant.haveVisited;
-    });
-    const randomizedRestaurants = this.randomListFromArray(
-      newrestaurantsList,
-      3
-    );
-    // get the markup of our results
-    const resultsMarkup = this.mapNewRestaurants(randomizedRestaurants);
-    // display those options
-    this.displayResults(resultsMarkup);
-  }
+  // getNewRestaurants(e) {
+  //   // randomize the array and return 3 options
+  //   const newrestaurantsList = restaurantsList.filter(function(restaurant) {
+  //     return !restaurant.haveVisited;
+  //   });
+  //   const randomizedRestaurants = this.randomListFromArray(
+  //     newrestaurantsList,
+  //     3
+  //   );
+  //   // get the markup of our results
+  //   const resultsMarkup = this.mapNewRestaurants(randomizedRestaurants);
+  //   // display those options
+  //   this.displayResults(resultsMarkup);
+  // }
 
   // Add new functions
   addRestaurant(restaurant) {
@@ -151,87 +160,41 @@ class App extends Component {
     const restaurantsList = { ...this.state.restaurantsList };
     // add in our new restaurant
     const timestamp = Date.now();
-    restaurantsList[`restaurant-${timestamp}`] = restaurant;    
+    restaurantsList[`restaurant-${timestamp}`] = restaurant;
     // set state
     this.setState({ restaurantsList });
   }
 
-  addNewSubmit(e) {
-    e.preventDefault();
-    // Create object of new restaurant data from form
-    const newRestaurant = {
-      restaurantName: this.restaurantName.value,
-      restaurantWebsite: this.restaurantWebsite.value,
-      haveVisited: this.haveVisited.value
-    };
-    this.addRestaurant(newRestaurant);
-    this.newRestaurantForm.reset();
+  // Click handler
+  handleClick(e) {
+    this.setState({
+      // sets state based on the clicked button's name and toggles true/false
+      [e.target.name]: this.state[e.target.name] ? false : true
+    });
   }
 
   render() {
-    return (
-      <div className="App">
+    return <div className="App">
         <h1>Where should we go for dinner?</h1>
         <div>
-          <button
-            className="button--weeklySpecials"
-            onClick={e => this.getTodaysSpecials(e)}
-          >
+          <button className="button--weeklySpecials" name="showTodaysSpecials" onClick={e => this.handleClick(e)}>
             Somewhere Tried & True
           </button>
-          <button
-            className="button--newRestaurants"
-            onClick={e => this.getNewRestaurants(e)}
-          >
+          <button className="button--newRestaurants" name="showNewRestaurants" onClick={e => this.handleClick(e)}>
             Give Me Something New
           </button>
+          <button className="button--weeklySpecials" name="showAllRestaurants" onClick={e => this.handleClick(e)}>
+            Show Me All Restaurants
+          </button>
         </div>
-        <div id="results" />
+        <div id="results">
+          {this.state.showAllRestaurants ? <AllRestaurants restaurantsList={this.state.restaurantsList} /> : null}
+          {this.state.showNewRestaurants ? <NewRestaurants restaurantsList={this.state.restaurantsList} /> : null}
+          {this.state.showTodaysSpecials ? <TodaysSpecials restaurantsList={this.state.restaurantsList} /> : null}
+        </div>
 
-        <h3>Add a new restaurant</h3>
-        <form
-          ref={input => (this.newRestaurantForm = input)}
-          className="form-block js-add-new"
-          onSubmit={e => this.addNewSubmit(e)}
-        >
-          <div className="form-group">
-            <label htmlFor="restaurantName">Restaurant Name:</label>
-            <input
-              ref={input => (this.restaurantName = input)}
-              className="form-block__input"
-              type="text"
-              name="restaurantName"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="restaurantWebsite">Restaurant Website:</label>
-            <input
-              ref={input => (this.restaurantWebsite = input)}
-              className="form-block__input"
-              type="text"
-              name="restaurantWebsite"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="haveVisited">Have you visited?</label>
-            <select
-              ref={input => (this.haveVisited = input)}
-              name="haveVisited"
-              className="form-block__select"
-              type="select"
-            >
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <button className="form-block__button" type="submit">
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
-    );
+        <AddRestaurantForm restaurantsList={this.state.restaurantsList} />
+      </div>;
   }
 }
 
