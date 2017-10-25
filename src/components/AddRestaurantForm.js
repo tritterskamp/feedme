@@ -15,7 +15,7 @@ class AddRestaurantForm extends Component {
       restaurantWebsite: this.restaurantWebsite.value,
       haveVisited: this.haveVisited.value
     };
-    this.addRestaurant(newRestaurant);
+    this.props.addRestaurant(newRestaurant);
     this.newRestaurantForm.reset();
   }
 
@@ -34,8 +34,8 @@ class AddRestaurantForm extends Component {
           <div className="form-group">
             <label htmlFor="haveVisited">Have you visited?</label>
             <select ref={input => (this.haveVisited = input)} name="haveVisited" className="form-block__select" type="select">
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
             </select>
           </div>
           <div className="form-group">

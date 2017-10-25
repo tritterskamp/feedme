@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import base from "./base"
 import restaurantsList from "./restaurantsList";
 import AddRestaurantForm from "./components/AddRestaurantForm";
+import AddWeeklySpecialForm from "./components/AddWeeklySpecialForm";
 import AllRestaurants from "./components/AllRestaurants";
 import NewRestaurants from "./components/NewRestaurants";
 import TodaysSpecials from "./components/TodaysSpecials";
@@ -18,16 +19,11 @@ class App extends Component {
     };
 
     // Bind methods:
-    this.getCurrentWeekday = this.getCurrentWeekday.bind(this);
     this.filterTodaysSpecials = this.filterTodaysSpecials.bind(this);
     this.formatTodaysSpecials = this.formatTodaysSpecials.bind(this);
-    //this.randomListFromArray = this.randomListFromArray.bind(this);
-    //this.mapNewRestaurants = this.mapNewRestaurants.bind(this);
-    //this.displayResults = this.displayResults.bind(this);
     this.getTodaysSpecials = this.getTodaysSpecials.bind(this);
-    //this.getNewRestaurants = this.getNewRestaurants.bind(this);
-    //this.showAllRestaurants = this.showAllRestaurants.bind(this);
     this.addRestaurant = this.addRestaurant.bind(this);
+    this.addSpecial = this.addSpecial.bind(this);    
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -37,22 +33,6 @@ class App extends Component {
       context: this,
       state: "restaurantsList"
     });
-  }
-
-  // Get current day of week
-  getCurrentWeekday() {
-    const weekdays = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
-    ];
-    const currentDate = new Date();
-    const currentDay = currentDate.getDay();
-    return weekdays[currentDay];
   }
 
   filterTodaysSpecials(currentDay, weeklySpecialsList) {
@@ -87,46 +67,6 @@ class App extends Component {
     return html;
   }
 
-  // // Randomize list
-  // randomListFromArray(array, limit) {
-  //   // Random Item from an Array, with no repeats
-  //   const list = [];
-  //   let timeout = 0;
-  //   const attemptAddRandom = function() {
-  //     timeout++;
-  //     let candidate = array[Math.floor(Math.random() * array.length)];
-  //     if (list.indexOf(candidate) === -1) {
-  //       list.push(candidate);
-  //     }
-
-  //     if (list.length < limit) {
-  //       if (timeout < 300) {
-  //         attemptAddRandom();
-  //       }
-  //     }
-  //   };
-
-  //   attemptAddRandom();
-  //   return list;
-  // }
-
-  // Map new restaurant data
-  // mapNewRestaurants(data) {
-  //   let html = "";
-  //   for (let i = 0; i < data.length; i++) {
-  //     html += `<p><a href="${data[i].website}" target="_blank">${data[i]
-  //       .restaurantName}</a></p>`;
-  //   }
-  //   return html;
-  // }
-
-  // // Display our results
-  // displayResults(data) {
-  //   const results = document.getElementById("results");
-  //   // display new results
-  //   results.innerHTML = data;
-  // }
-
   // User clicks specials button, we should return all restaurants with a special matching the day of the week
   getTodaysSpecials(e) {
     const today = this.getCurrentWeekday();
@@ -138,22 +78,6 @@ class App extends Component {
     this.displayResults(resultsMarkup);
   }
 
-  // User clicks new button, we should randomly return 3 restaurant options to pick from
-  // getNewRestaurants(e) {
-  //   // randomize the array and return 3 options
-  //   const newrestaurantsList = restaurantsList.filter(function(restaurant) {
-  //     return !restaurant.haveVisited;
-  //   });
-  //   const randomizedRestaurants = this.randomListFromArray(
-  //     newrestaurantsList,
-  //     3
-  //   );
-  //   // get the markup of our results
-  //   const resultsMarkup = this.mapNewRestaurants(randomizedRestaurants);
-  //   // display those options
-  //   this.displayResults(resultsMarkup);
-  // }
-
   // Add new functions
   addRestaurant(restaurant) {
     // update our state - make a copy first, this is best practice:
@@ -161,6 +85,18 @@ class App extends Component {
     // add in our new restaurant
     const timestamp = Date.now();
     restaurantsList[`restaurant-${timestamp}`] = restaurant;
+    // set state
+    this.setState({ restaurantsList });
+  }
+
+  // Add new functions
+  addSpecial(restaurant, key) {
+    // update our state - make a copy first, this is best practice:
+    const restaurantsList = { ...this.state.restaurantsList };
+    // add in our new special
+    const timestamp = Date.now();
+    //restaurantsList[key][`special-${timestamp}`] = restaurant;
+    restaurantsList[key][`special-${timestamp}`] = restaurant;
     // set state
     this.setState({ restaurantsList });
   }
@@ -193,7 +129,8 @@ class App extends Component {
           {this.state.showTodaysSpecials ? <TodaysSpecials restaurantsList={this.state.restaurantsList} /> : null}
         </div>
 
-        <AddRestaurantForm restaurantsList={this.state.restaurantsList} />
+        <AddRestaurantForm restaurantsList={this.state.restaurantsList} addRestaurant={this.addRestaurant} />
+        <AddWeeklySpecialForm restaurantsList={this.state.restaurantsList} addSpecial={this.addSpecial} />
       </div>;
   }
 }

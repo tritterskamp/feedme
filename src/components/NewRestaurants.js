@@ -1,54 +1,24 @@
 import React, { Component } from "react";
+import { randomListFromArray } from "../helpers"
 
 class NewRestaurants extends Component {
+  /*
+  First, we want to filter this.props.restaurantsList to only include restaurants that haveVisited === "false"
+  Then, we pass that array through the randomListFromArray function
+  Then, we output that return on screen
+  */
+
   constructor() {
     super();
-    this.renderAllRestaurants = this.renderAllRestaurants.bind(this);
+    this.renderNewRestaurants = this.renderNewRestaurants.bind(this);
   }
 
-  // Randomize list
-  randomListFromArray(array, limit) {
-    // Random Item from an Array, with no repeats
-    const list = [];
-    let timeout = 0;
-    const attemptAddRandom = function() {
-      timeout++;
-      let candidate = array[Math.floor(Math.random() * array.length)];
-      if (list.indexOf(candidate) === -1) {
-        list.push(candidate);
-      }
 
-      if (list.length < limit) {
-        if (timeout < 300) {
-          attemptAddRandom();
-        }
-      }
-    };
-
-    attemptAddRandom();
-    return list;
-  }
-
-  getNewRestaurants(e) {
-    // randomize the array and return 3 options
-    const newrestaurantsList = this.props.restaurantsList.filter(function(restaurant) {
-      return !restaurant.haveVisited;
-    });
-    const randomizedRestaurants = this.randomListFromArray(
-      newrestaurantsList,
-      3
-    );
-    // get the markup of our results
-    //const resultsMarkup = this.mapNewRestaurants(randomizedRestaurants);
-    // display those options
-    //this.displayResults(resultsMarkup);
-    return randomizedRestaurants;
-  }
-
+  // Render the output
   renderNewRestaurants(key) {
     const restaurant = this.props.restaurantsList[key];
     return (
-      <p className="restaurant" key={key}>
+      <p className="restaurant" key={key} havevisited={restaurant.haveVisited}>
         <a href={restaurant.restaurantWebsite} target="_blank">
           {restaurant.restaurantName}
         </a>
@@ -57,8 +27,14 @@ class NewRestaurants extends Component {
   }
 
   render() {
-    const restaurantId = Object.keys(this.props.restaurantsList);
-    return <div>{restaurantId.map(this.renderNewRestaurants)}</div>;
+    // Return array of restaurant keys where haveVisited === false
+    const newRestaurants = Object.keys(this.props.restaurantsList).filter(
+      key => this.props.restaurantsList[key].haveVisited === "false"
+    );
+    // Return array of specified number of randomized restaurant keys
+    const randomRestaurants = randomListFromArray(newRestaurants, 3);
+    // Render output of our new random restaurants
+    return <div>{randomRestaurants.map(this.renderNewRestaurants)}</div>;
   }
 }
 
