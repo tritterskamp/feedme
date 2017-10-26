@@ -13,6 +13,7 @@ class App extends Component {
     super(props);
     this.state = {
       restaurantsList: {},
+      weeklySpecials: {},
       showAllRestaurants: false,
       showTodaysSpecials: false,
       showNewRestaurants: false
@@ -32,6 +33,10 @@ class App extends Component {
     base.syncState("restaurants", {
       context: this,
       state: "restaurantsList"
+    });
+    base.syncState("weeklySpecials", {
+      context: this,
+      state: "weeklySpecials"
     });
   }
 
@@ -92,13 +97,14 @@ class App extends Component {
   // Add new functions
   addSpecial(restaurant, key) {
     // update our state - make a copy first, this is best practice:
-    const restaurantsList = { ...this.state.restaurantsList };
+    const weeklySpecials = { ...this.state.weeklySpecials };
     // add in our new special
     const timestamp = Date.now();
     //restaurantsList[key][`special-${timestamp}`] = restaurant;
-    restaurantsList[key][`special-${timestamp}`] = restaurant;
+    weeklySpecials[key][`special--${timestamp}`] = restaurant;
+    console.log(restaurant);
     // set state
-    this.setState({ restaurantsList });
+    this.setState({ weeklySpecials });
   }
 
   // Click handler
@@ -126,7 +132,7 @@ class App extends Component {
         <div id="results">
           {this.state.showAllRestaurants ? <AllRestaurants restaurantsList={this.state.restaurantsList} /> : null}
           {this.state.showNewRestaurants ? <NewRestaurants restaurantsList={this.state.restaurantsList} /> : null}
-          {this.state.showTodaysSpecials ? <TodaysSpecials restaurantsList={this.state.restaurantsList} /> : null}
+          {this.state.showTodaysSpecials ? <TodaysSpecials restaurantsList={this.state.restaurantsList} weeklySpecials={this.state.weeklySpecials} /> : null}
         </div>
 
         <AddRestaurantForm restaurantsList={this.state.restaurantsList} addRestaurant={this.addRestaurant} />
