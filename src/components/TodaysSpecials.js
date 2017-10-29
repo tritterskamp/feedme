@@ -10,64 +10,25 @@ class TodaysSpecials extends Component {
 
   constructor() {
     super();
-    this.filterTodaysSpecials = this.filterTodaysSpecials.bind(this);
     this.renderTodaysSpecials = this.renderTodaysSpecials.bind(this);
   }
 
-  filterTodaysSpecials(key) {
-    const restaurant = this.props.restaurantsList[key];
-    const restaurantSpecial = this.props.weeklySpecials[key];
-    Object.keys(restaurantSpecial).map(key =>
-      this.renderTodaysSpecials(key, restaurant, restaurantSpecial)
-    );
-    // Filter through weeklySpecialsList
-    // const todaysSpecialList = Object.keys(this.props.restaurantsList).map(key => this.props.restaurantsList[key].specialDay === currentDay);
-    // // weeklySpecialsList.map(function(restaurant) {
-    //   for (let i = 0; i < restaurant.weeklySpecials.length; i++) {
-    //     // If weekly special contains a specialDay that matches the currentDay push restaurant name, specials details and website into a new array
-    //     if (restaurant.weeklySpecials[i].specialDay === currentDay) {
-    //       todaysSpecialList.push({
-    //         restaurantName: restaurant.restaurantName,
-    //         specialDay: restaurant.weeklySpecials[i].specialDay,
-    //         special: restaurant.weeklySpecials[i].special
-    //       });
-    //     }
-    //   }
-    // });
-    // Return the new array
-    //    return todaysSpecialList;
-  }
-
   // Render the output
-  renderTodaysSpecials(key, restaurant, restaurantSpecial) {
-    // console.log(key);
-    // console.log(restaurant.restaurantName);
-    // console.log(restaurantSpecial[key].specialDay);
-    const restaurantName = restaurant.restaurantName;
-    const special = restaurantSpecial[key];
-    console.log(restaurantName);
-    console.log(special.specialDay);
-    if (special.specialDay === getCurrentWeekday) {
-      console.log('yes');
-      return <p key={key}>
-          {special.restaurantSpecial} at {restaurantName} on {special.specialDay}
-        </p>;
-    } else {
-      console.log('no');
-      return <p key={key}>
-          Sorry, there are no specials today. Try something new!
-        </p>;
-    }
+  renderTodaysSpecials(key) {
+    const special = this.props.weeklySpecials[key];
+    const restaurantKey = special.restaurantKey;
+    const restaurantName = this.props.restaurantsList[restaurantKey].restaurantName;
+    return <p key={key}>{special.restaurantSpecial} at {restaurantName} on {special.specialDay}</p>;
   }
 
   render() {
-    const todaysSpecialList = Object.keys(this.props.restaurantsList).map(
-      key => this.props.restaurantsList[key]
-    );
+    const todaysSpecialsList = Object.keys(this.props.weeklySpecials).filter(key => this.props.weeklySpecials[key].specialDay === getCurrentWeekday());
     // Build an array of our list of restaurants keys and then render the output
     return <div>
-        {Object.keys(this.props.weeklySpecials).map(
-          this.filterTodaysSpecials
+        {todaysSpecialsList.length > 0 ? (
+          todaysSpecialsList.map(this.renderTodaysSpecials)
+        ) : (
+          <p>Sorry, there are no specials today. Try something new!</p>
         )}
       </div>;
   }

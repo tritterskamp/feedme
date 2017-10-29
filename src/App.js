@@ -98,11 +98,9 @@ class App extends Component {
   addSpecial(restaurant, key) {
     // update our state - make a copy first, this is best practice:
     const weeklySpecials = { ...this.state.weeklySpecials };
-    // add in our new special
     const timestamp = Date.now();
-    //restaurantsList[key][`special-${timestamp}`] = restaurant;
-    weeklySpecials[key][`special--${timestamp}`] = restaurant;
-    console.log(restaurant);
+    // add in our new special
+    weeklySpecials[`special-${timestamp}`] = restaurant;
     // set state
     this.setState({ weeklySpecials });
   }

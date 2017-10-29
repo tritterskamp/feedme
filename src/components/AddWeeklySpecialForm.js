@@ -13,10 +13,11 @@ class AddWeeklySpecialForm extends Component {
     e.preventDefault();
     // Create object of new restaurant data from form
     const newSpecial = {
+        restaurantKey: this.restaurantName.value,
         restaurantSpecial: this.restaurantSpecial.value,
         specialDay: this.specialDay.value      
     };
-    this.props.addSpecial(newSpecial, this.restaurantName.value);
+    this.props.addSpecial(newSpecial);
     this.newRestaurantForm.reset();
   }
 
