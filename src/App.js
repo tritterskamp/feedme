@@ -1,31 +1,26 @@
-import React, { Component } from 'react';
-import base from "./base"
+import React, { Component } from "react";
+import { BrowserRouter, Link, Route } from "react-router-dom";
+import base from "./base";
+import Home from "./components/Home";
 import AddRestaurantForm from "./components/AddRestaurantForm";
 import AddWeeklySpecialForm from "./components/AddWeeklySpecialForm";
-import AllRestaurants from "./components/AllRestaurants";
-import NewRestaurants from "./components/NewRestaurants";
-import TodaysSpecials from "./components/TodaysSpecials";
-import './App.css';
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       restaurantsList: {},
-      weeklySpecials: {},
-      showAllRestaurants: false,
-      showTodaysSpecials: false,
-      showNewRestaurants: false
+      weeklySpecials: {}
     };
 
     // Bind methods:
     this.addRestaurant = this.addRestaurant.bind(this);
-    this.addSpecial = this.addSpecial.bind(this);    
-    this.handleClick = this.handleClick.bind(this);
+    this.addSpecial = this.addSpecial.bind(this);
   }
 
   componentWillMount() {
-    // syncs state with firebase data
+    //syncs state with firebase data
     base.syncState("restaurants", {
       context: this,
       state: "restaurantsList"
@@ -58,37 +53,47 @@ class App extends Component {
     this.setState({ weeklySpecials });
   }
 
-  // Click handler
-  handleClick(e) {
-    this.setState({
-      // sets state based on the clicked button's name and toggles true/false
-      [e.target.name]: this.state[e.target.name] ? false : true
-    });
-  }
-
   render() {
-    return <div className="App">
-        <h1>Where should we go for dinner?</h1>
-        <div>
-          <button className="button--weeklySpecials" name="showTodaysSpecials" onClick={e => this.handleClick(e)}>
-            Today's Specials
-          </button>
-          <button className="button--newRestaurants" name="showNewRestaurants" onClick={e => this.handleClick(e)}>
-            Let's Try Something New
-          </button>
-          <button className="button--weeklySpecials" name="showAllRestaurants" onClick={e => this.handleClick(e)}>
-            Show Me All Restaurants
-          </button>
-        </div>
-        <div id="results">
-          {this.state.showAllRestaurants ? <AllRestaurants restaurantsList={this.state.restaurantsList} /> : null}
-          {this.state.showNewRestaurants ? <NewRestaurants restaurantsList={this.state.restaurantsList} /> : null}
-          {this.state.showTodaysSpecials ? <TodaysSpecials restaurantsList={this.state.restaurantsList} weeklySpecials={this.state.weeklySpecials} /> : null}
-        </div>
+    return <BrowserRouter>
+        <div className="App">
+          <nav className="navbar navbar-inverse">
+            <div className="container">
+              <div className="navbar-header">
+                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span className="sr-only">Toggle navigation</span>
+                  <span className="icon-bar" />
+                  <span className="icon-bar" />
+                  <span className="icon-bar" />
+                </button>
+                <a className="navbar-brand" href="#">
+                  Restaurant Picker!
+                </a>
+              </div>
+              <div id="navbar" className="collapse navbar-collapse">
+                <ul className="nav navbar-nav">
+                  <li className="active">
+                    <Link to="/">Home</Link>
+                  </li>
+                  <li>
+                    <Link to="/add-restaurant">Add a Restaurant</Link>
+                  </li>
+                  <li>
+                    <Link to="/add-special">Add a Special</Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
 
-        <AddRestaurantForm restaurantsList={this.state.restaurantsList} addRestaurant={this.addRestaurant} />
-        <AddWeeklySpecialForm restaurantsList={this.state.restaurantsList} addSpecial={this.addSpecial} />
-      </div>;
+          <div className="container">
+            <div className="row text-center">
+              <Route path="/" exact render={() => <Home restaurantsList={this.state.restaurantsList} weeklySpecials={this.state.weeklySpecials} />} />
+              <Route path="/add-restaurant" render={() => <AddRestaurantForm restaurantsList={this.state.restaurantsList} addRestaurant={this.addRestaurant} />} />
+              <Route path="/add-special" render={() => <AddWeeklySpecialForm restaurantsList={this.state.restaurantsList} addSpecial={this.addSpecial} />} />
+            </div>
+          </div>
+        </div>
+      </BrowserRouter>;
   }
 }
 

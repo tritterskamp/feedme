@@ -21,7 +21,7 @@ class AddRestaurantForm extends Component {
 
   render() {
     return <div>
-        <h3>Add a new restaurant</h3>
+        <h1>Add a new restaurant</h1>
         <form ref={input => (this.newRestaurantForm = input)} className="form-block js-add-new" onSubmit={e => this.addNewSubmit(e)}>
           <div className="form-group">
             <label htmlFor="restaurantName">Restaurant Name:</label>

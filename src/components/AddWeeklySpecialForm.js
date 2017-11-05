@@ -24,7 +24,7 @@ class AddWeeklySpecialForm extends Component {
   render() {
     const restaurantsList = this.props.restaurantsList;
     return <div>
-        <h3>Add a weekly special</h3>
+        <h1>Add a weekly special</h1>
         <form ref={input => (this.newRestaurantForm = input)} className="form-block js-add-new" onSubmit={e => this.addNewSubmit(e, this.restaurantName.id)}>
           <div className="form-group">
             <label htmlFor="restaurantName">Restaurant Name:</label>
