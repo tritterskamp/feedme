@@ -1,10 +1,28 @@
 import React, { Component } from "react";
-import { BrowserRouter, Link, Route } from "react-router-dom";
+import { BrowserRouter, Link, NavLink, Switch, Route } from "react-router-dom";
 import base from "./base";
 import Home from "./components/Home";
 import AddRestaurantForm from "./components/AddRestaurantForm";
 import AddWeeklySpecialForm from "./components/AddWeeklySpecialForm";
+import EditRestaurant from "./components/EditRestaurant";
 import "./App.css";
+
+
+const renderMergedProps = (component, ...rest) => {
+  const finalProps = Object.assign({}, ...rest);
+  return React.createElement(component, finalProps);
+};
+
+const PropsRoute = ({ component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={routeProps => {
+        return renderMergedProps(component, routeProps, rest);
+      }}
+    />
+  );
+};
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +35,7 @@ class App extends Component {
     // Bind methods:
     this.addRestaurant = this.addRestaurant.bind(this);
     this.addSpecial = this.addSpecial.bind(this);
+    //this.removeRestaurant = this.removeRestaurant.bind(this);
   }
 
   componentWillMount() {
@@ -53,6 +72,14 @@ class App extends Component {
     this.setState({ weeklySpecials });
   }
 
+  // removeRestaurant(key) {
+  //   // take a copy of state
+  //   const restaurantsList = { ...this.state.restaurantsList };
+  //   restaurantsList[key] = null;
+  //   //update our state
+  //   this.setState({ restaurantsList });
+  // }
+
   render() {
     return <BrowserRouter>
         <div className="App">
@@ -65,20 +92,27 @@ class App extends Component {
                   <span className="icon-bar" />
                   <span className="icon-bar" />
                 </button>
-                <a className="navbar-brand" href="#">
+                <Link to="/" className="navbar-brand">
                   Restaurant Picker!
-                </a>
+                </Link>
               </div>
               <div id="navbar" className="collapse navbar-collapse">
                 <ul className="nav navbar-nav">
-                  <li className="active">
-                    <Link to="/">Home</Link>
+                  <li>
+                    <NavLink to="/" exact>
+                      Home
+                    </NavLink>
                   </li>
                   <li>
-                    <Link to="/add-restaurant">Add a Restaurant</Link>
+                    <NavLink to="/add-restaurant">Add a Restaurant</NavLink>
                   </li>
                   <li>
-                    <Link to="/add-special">Add a Special</Link>
+                    <NavLink to="/add-special">Add a Special</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/edit-restaurant">
+                      Edit a Restaurant
+                    </NavLink>
                   </li>
                 </ul>
               </div>
@@ -86,10 +120,13 @@ class App extends Component {
           </nav>
 
           <div className="container">
-            <div className="row text-center">
-              <Route path="/" exact render={() => <Home restaurantsList={this.state.restaurantsList} weeklySpecials={this.state.weeklySpecials} />} />
-              <Route path="/add-restaurant" render={() => <AddRestaurantForm restaurantsList={this.state.restaurantsList} addRestaurant={this.addRestaurant} />} />
-              <Route path="/add-special" render={() => <AddWeeklySpecialForm restaurantsList={this.state.restaurantsList} addSpecial={this.addSpecial} />} />
+            <div className="row">
+              <Switch>
+                <PropsRoute path="/" exact component={Home} restaurantsList={this.state.restaurantsList} weeklySpecials={this.state.weeklySpecials} />
+                <PropsRoute path="/add-restaurant" component={AddRestaurantForm} restaurantsList={this.state.restaurantsList} addRestaurant={this.addRestaurant} />
+                <PropsRoute path="/add-special" component={AddWeeklySpecialForm} restaurantsList={this.state.restaurantsList} addSpecial={this.addSpecial} />} />
+                <PropsRoute path="/edit-restaurant" component={EditRestaurant} restaurantsList={this.state.restaurantsList} removeRestaurant={this.removeRestaurant} />} />
+              </Switch>
             </div>
           </div>
         </div>

@@ -18,11 +18,11 @@ class AllRestaurants extends Component {
     renderAllRestaurants(key) {
         const restaurant = this.props.restaurantsList[key];
         return (
-        <p className="restaurant" key={key}>
+        <li className="restaurant" key={key}>
             <a href={restaurant.restaurantWebsite} target="_blank">
             {restaurant.restaurantName}
             </a>
-        </p>
+        </li>
         );
     }
 
@@ -30,10 +30,10 @@ class AllRestaurants extends Component {
         const restaurantsList = this.props.restaurantsList;
 
         // Build an array of our list of restaurants keys and then render the output
-        return <div>
+        return <ul className="all-restaurants list-unstyled">
             {Object.keys(restaurantsList)
               .map(this.renderAllRestaurants)}
-          </div>;
+          </ul>;
     }
 }
 
