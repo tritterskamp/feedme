@@ -8,64 +8,34 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        showAllRestaurants: false,
-        showTodaysSpecials: false,
-        showNewRestaurants: false
+        activeButton: '',
     }
     // Bind methods:
     this.handleClick = this.handleClick.bind(this);
   }
   // Click handler
   handleClick(e) {
-    this.setState({
-      // sets state based on the clicked button's name and toggles true/false
-      [e.target.name]: this.state[e.target.name] ? false : true
-    });
+    this.props.renderActiveButton(e.target.name);    
   }
 
   render() {
-    return (
-      <div className="text-center">
+    return <div className="text-center">
         <h1>Where should we go for dinner?</h1>
         <div className="row">
-          <button
-            className="btn btn-default button--weeklySpecials"
-            name="showTodaysSpecials"
-            onClick={e => this.handleClick(e)}
-          >
+          <button className={this.props.activeButton === "showTodaysSpecials" ? "active btn btn-default" : "btn btn-default"} name="showTodaysSpecials" onClick={e => this.handleClick(e)}>
             Today's Specials
           </button>
-          <button
-            className="btn btn-default button--newRestaurants"
-            name="showNewRestaurants"
-            onClick={e => this.handleClick(e)}
-          >
+          <button className={this.props.activeButton === "showNewRestaurants" ? "active btn btn-default" : "btn btn-default"} name="showNewRestaurants" onClick={e => this.handleClick(e)}>
             Let's Try Something New
           </button>
-          <button
-            className="btn btn-default button--weeklySpecials"
-            name="showAllRestaurants"
-            onClick={e => this.handleClick(e)}
-          >
+          <button className={this.props.activeButton === "showAllRestaurants" ? "active btn btn-default" : "btn btn-default"} name="showAllRestaurants" onClick={e => this.handleClick(e)}>
             Show Me All Restaurants
           </button>
         </div>
         <div id="results" className="row">
-          {this.state.showAllRestaurants ? (
-            <AllRestaurants restaurantsList={this.props.restaurantsList} />
-          ) : null}
-          {this.state.showNewRestaurants ? (
-            <NewRestaurants restaurantsList={this.props.restaurantsList} />
-          ) : null}
-          {this.state.showTodaysSpecials ? (
-            <TodaysSpecials
-              restaurantsList={this.props.restaurantsList}
-              weeklySpecials={this.props.weeklySpecials}
-            />
-          ) : null}
+          {this.props.activeButton === "showAllRestaurants" ? <AllRestaurants restaurantsList={this.props.restaurantsList} /> : this.props.activeButton === "showNewRestaurants" ? <NewRestaurants restaurantsList={this.props.restaurantsList} /> : this.props.activeButton === "showTodaysSpecials" ? <TodaysSpecials restaurantsList={this.props.restaurantsList} weeklySpecials={this.props.weeklySpecials} /> : null}
         </div>
-      </div>
-    );
+      </div>;
   }
 }
 

@@ -16,7 +16,7 @@ class AllRestaurants extends Component {
 
     // Render the output
     renderAllRestaurants(key) {
-        const restaurant = this.props.restaurantsList[key];
+        const restaurant = this.props.restaurantsList[key];        
         return (
         <li className="restaurant" key={key}>
             <a href={restaurant.restaurantWebsite} target="_blank">
@@ -28,7 +28,6 @@ class AllRestaurants extends Component {
 
     render() {
         const restaurantsList = this.props.restaurantsList;
-
         // Build an array of our list of restaurants keys and then render the output
         return <ul className="all-restaurants list-unstyled">
             {Object.keys(restaurantsList)

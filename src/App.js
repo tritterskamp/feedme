@@ -29,13 +29,16 @@ class App extends Component {
     super(props);
     this.state = {
       restaurantsList: {},
-      weeklySpecials: {}
+      weeklySpecials: {},
+      activeButton: ''
     };
 
     // Bind methods:
     this.addRestaurant = this.addRestaurant.bind(this);
     this.addSpecial = this.addSpecial.bind(this);
-    //this.removeRestaurant = this.removeRestaurant.bind(this);
+    this.removeRestaurant = this.removeRestaurant.bind(this);
+    this.updateRestaurant = this.updateRestaurant.bind(this);    
+    this.renderActiveButton = this.renderActiveButton.bind(this);
   }
 
   componentWillMount() {
@@ -72,13 +75,26 @@ class App extends Component {
     this.setState({ weeklySpecials });
   }
 
-  // removeRestaurant(key) {
-  //   // take a copy of state
-  //   const restaurantsList = { ...this.state.restaurantsList };
-  //   restaurantsList[key] = null;
-  //   //update our state
-  //   this.setState({ restaurantsList });
-  // }
+  removeRestaurant(key) {
+    // take a copy of state
+    const restaurantsList = { ...this.state.restaurantsList };    
+    restaurantsList[key] = null;
+    //update our state
+    this.setState({ restaurantsList });
+  }
+
+  updateRestaurant(key, restaurantDetails) {
+    // take a copy of state
+    const restaurantsList = {...this.state.restaurantsist};
+    restaurantsList[key] = restaurantDetails;
+    this.setState({ restaurantsList })
+  }
+
+  renderActiveButton(target) {
+    this.setState({ 
+      activeButton: target 
+    });
+  }
 
   render() {
     return <BrowserRouter>
@@ -122,10 +138,10 @@ class App extends Component {
           <div className="container">
             <div className="row">
               <Switch>
-                <PropsRoute path="/" exact component={Home} restaurantsList={this.state.restaurantsList} weeklySpecials={this.state.weeklySpecials} />
+                <PropsRoute path="/" exact component={Home} restaurantsList={this.state.restaurantsList} weeklySpecials={this.state.weeklySpecials} activeButton={this.state.activeButton} renderActiveButton={this.renderActiveButton} />
                 <PropsRoute path="/add-restaurant" component={AddRestaurantForm} restaurantsList={this.state.restaurantsList} addRestaurant={this.addRestaurant} />
                 <PropsRoute path="/add-special" component={AddWeeklySpecialForm} restaurantsList={this.state.restaurantsList} addSpecial={this.addSpecial} />} />
-                <PropsRoute path="/edit-restaurant" component={EditRestaurant} restaurantsList={this.state.restaurantsList} removeRestaurant={this.removeRestaurant} />} />
+                <PropsRoute path="/edit-restaurant" component={EditRestaurant} restaurantsList={this.state.restaurantsList} removeRestaurant={this.removeRestaurant} updateRestaurant={this.updateRestaurant} />} />
               </Switch>
             </div>
           </div>

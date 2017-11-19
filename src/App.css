@@ -13,12 +13,4 @@
 
 .all-restaurants li {
   padding: 10px;
-  border: 1px solid #ddd;
-  border-top: none;
-}
-.all-restaurants li:first-child {
-  border-top: 1px solid #ddd;
-}
-.all-restaurants li:nth-child(odd) {
-  background-color: #f9f9f9;
 }
