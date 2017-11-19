@@ -17,6 +17,9 @@ class RestaurantDetails extends Component {
   removeHandler(key) {
     // remove this key from restaurantsList state
     this.props.removeRestaurant(key);
+
+    // we also need to remove any specials matching this restaurant key...
+
     // reset form and editRestaurantKey
     this.props.resetForm();
     alert(`${this.restaurantName.value} has been removed!`);    

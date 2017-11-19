@@ -5,11 +5,9 @@ import TodaysSpecials from "../components/TodaysSpecials";
 
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        activeButton: '',
-    }
+  constructor() {
+    super();
+    
     // Bind methods:
     this.handleClick = this.handleClick.bind(this);
   }

@@ -17,8 +17,13 @@ class TodaysSpecials extends Component {
   renderTodaysSpecials(key) {
     const special = this.props.weeklySpecials[key];
     const restaurantKey = special.restaurantKey;
-    const restaurantName = this.props.restaurantsList[restaurantKey].restaurantName;
-    return <p key={key}>{special.restaurantSpecial} at {restaurantName} on {special.specialDay}</p>;
+    // let's check to make sure today's special corresponds to a restaurant key
+    if (this.props.restaurantsList[restaurantKey]) {
+      // then let's print the restaurant special available today
+      const restaurantName = this.props.restaurantsList[restaurantKey].restaurantName;
+      return <p key={key}>{special.restaurantSpecial} at {restaurantName} on {special.specialDay}</p>;
+    }
+    return false;
   }
 
   render() {
