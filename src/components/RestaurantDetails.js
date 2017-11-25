@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class RestaurantDetails extends Component {
 /*
@@ -19,9 +20,11 @@ class RestaurantDetails extends Component {
     this.props.removeRestaurant(key);
 
     // we also need to remove any specials matching this restaurant key...
+    this.props.removeSpecial(this.props.specials);
 
     // reset form and editRestaurantKey
     this.props.resetForm();
+
     alert(`${this.restaurantName.value} has been removed!`);    
   }
 
@@ -63,15 +66,26 @@ class RestaurantDetails extends Component {
           <textarea ref={input => (this.restaurantNotes = input)} className="form-block__input form-control" rows="3" name="restaurantNotes" />
   </div>*/}
         <div className="form-group">
-          <button className="form-block__button btn btn-default" type="submit" onClick={(e) => this.updateHandler(e, key)}>
+          <button className="form-block__button btn btn-default" type="submit" onClick={e => this.updateHandler(e, key)}>
             Update
           </button>
           <button className="form-block__button btn btn-default" type="submit" onClick={() => this.removeHandler(key)}>
             Remove
           </button>
+          <button className="form-block__button btn btn-default" type="submit" onClick={() => this.props.resetForm()}>
+            Reset
+          </button>
         </div>
       </form>;
   }
+}
+
+RestaurantDetails.propTypes = {
+  removeRestaurant: PropTypes.func.isRequired,
+  resetForm: PropTypes.func.isRequired,
+  updateRestaurant: PropTypes.func.isRequired,
+  restaurantKey: PropTypes.string.isRequired,
+  restaurantsList: PropTypes.object.isRequired
 }
 
 export default RestaurantDetails;

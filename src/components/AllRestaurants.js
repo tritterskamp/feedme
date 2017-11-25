@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { sortAlphabetically } from "../helpers"
 
 class AllRestaurants extends Component {
@@ -34,6 +35,10 @@ class AllRestaurants extends Component {
               .map(this.renderAllRestaurants)}
           </ul>;
     }
+}
+
+AllRestaurants.propTypes = {
+    restaurantsList: PropTypes.object.isRequired
 }
 
 export default AllRestaurants;

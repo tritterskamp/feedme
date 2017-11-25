@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { weekdays } from "../helpers"
 
 class AddWeeklySpecialForm extends Component {
@@ -59,6 +60,11 @@ class AddWeeklySpecialForm extends Component {
         </form>
       </div>;
   }
+}
+
+AddWeeklySpecialForm.propTypes = {
+  addSpecial: PropTypes.func.isRequired,
+  restaurantsList: PropTypes.object.isRequired
 }
 
 export default AddWeeklySpecialForm;

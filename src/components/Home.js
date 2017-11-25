@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import AllRestaurants from "../components/AllRestaurants";
 import NewRestaurants from "../components/NewRestaurants";
 import TodaysSpecials from "../components/TodaysSpecials";
@@ -35,6 +36,13 @@ class Home extends Component {
         </div>
       </div>;
   }
+}
+
+Home.propTypes = {
+  activeButton: PropTypes.string.isRequired,
+  restaurantsList: PropTypes.object.isRequired,
+  weeklySpecials: PropTypes.object.isRequired,
+  renderActiveButton: PropTypes.func.isRequired
 }
 
 export default Home;

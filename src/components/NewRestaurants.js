@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { randomListFromArray } from "../helpers"
 
 class NewRestaurants extends Component {
@@ -36,6 +37,10 @@ class NewRestaurants extends Component {
     // Render output of our new random restaurants
     return <div>{randomRestaurants.map(this.renderNewRestaurants)}</div>;
   }
+}
+
+NewRestaurants.propTypes = {
+  restaurantsList: PropTypes.object.isRequired
 }
 
 export default NewRestaurants;

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { getCurrentWeekday } from "../helpers";
 
 class TodaysSpecials extends Component {
@@ -37,6 +38,11 @@ class TodaysSpecials extends Component {
         )}
       </div>;
   }
+}
+
+TodaysSpecials.propTypes = {
+  weeklySpecials: PropTypes.object.isRequired,
+  restaurantsList: PropTypes.object.isRequired
 }
 
 export default TodaysSpecials;

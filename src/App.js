@@ -30,14 +30,19 @@ class App extends Component {
     this.state = {
       restaurantsList: {},
       weeklySpecials: {},
-      activeButton: ''
+      activeButton: "",
+      editRestaurantKey: ""
     };
 
     // Bind methods:
     this.addRestaurant = this.addRestaurant.bind(this);
     this.addSpecial = this.addSpecial.bind(this);
+    this.editRestaurant = this.editRestaurant.bind(this);
+    this.resetRestaurantKey = this.resetRestaurantKey.bind(this);
     this.removeRestaurant = this.removeRestaurant.bind(this);
-    this.updateRestaurant = this.updateRestaurant.bind(this);    
+    this.updateRestaurant = this.updateRestaurant.bind(this);
+    this.removeSpecial = this.removeSpecial.bind(this);
+    this.updateSpecial = this.updateSpecial.bind(this);
     this.renderActiveButton = this.renderActiveButton.bind(this);
   }
 
@@ -75,34 +80,72 @@ class App extends Component {
     this.setState({ weeklySpecials });
   }
 
+  editRestaurant(key) {
+    this.setState({
+      editRestaurantKey: key
+    });
+  }
+
+  resetRestaurantKey() {
+    this.setState({
+      editRestaurantKey: ""
+    });
+  }
+
   removeRestaurant(key) {
     // take a copy of state
-    const restaurantsList = { ...this.state.restaurantsList };    
+    const restaurantsList = { ...this.state.restaurantsList };
     restaurantsList[key] = null;
+    
     //update our state
     this.setState({ restaurantsList });
   }
 
   updateRestaurant(key, restaurantDetails) {
     // take a copy of state
-    const restaurantsList = {...this.state.restaurantsist};
+    const restaurantsList = { ...this.state.restaurantsist };
     restaurantsList[key] = restaurantDetails;
-    this.setState({ restaurantsList })
+    this.setState({ restaurantsList });
+  }
+
+  removeSpecial(keyArray) {
+    // take a copy of state
+    const weeklySpecials = { ...this.state.weeklySpecials };    
+    // there may be multiple specials so map each one to null
+    keyArray.map(key => (weeklySpecials[key] = null));
+
+    //update our state
+    this.setState({ weeklySpecials });
+  }
+
+  updateSpecial(key, specialDetails) {
+    // take a copy of state
+    const weeklySpecials = { ...this.state.weeklySpecials };
+    weeklySpecials[key] = specialDetails;
+    this.setState({ weeklySpecials });
   }
 
   renderActiveButton(target) {
-    this.setState({ 
-      activeButton: target 
+    this.setState({
+      activeButton: target
     });
   }
 
   render() {
-    return <BrowserRouter>
+    return (
+      <BrowserRouter>
         <div className="App">
           <nav className="navbar navbar-inverse">
             <div className="container">
               <div className="navbar-header">
-                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <button
+                  type="button"
+                  className="navbar-toggle collapsed"
+                  data-toggle="collapse"
+                  data-target="#navbar"
+                  aria-expanded="false"
+                  aria-controls="navbar"
+                >
                   <span className="sr-only">Toggle navigation</span>
                   <span className="icon-bar" />
                   <span className="icon-bar" />
@@ -126,9 +169,7 @@ class App extends Component {
                     <NavLink to="/add-special">Add a Special</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/edit-restaurant">
-                      Edit a Restaurant
-                    </NavLink>
+                    <NavLink to="/edit-restaurant">Edit a Restaurant</NavLink>
                   </li>
                 </ul>
               </div>
@@ -138,15 +179,46 @@ class App extends Component {
           <div className="container">
             <div className="row">
               <Switch>
-                <PropsRoute path="/" exact component={Home} restaurantsList={this.state.restaurantsList} weeklySpecials={this.state.weeklySpecials} activeButton={this.state.activeButton} renderActiveButton={this.renderActiveButton} />
-                <PropsRoute path="/add-restaurant" component={AddRestaurantForm} restaurantsList={this.state.restaurantsList} addRestaurant={this.addRestaurant} />
-                <PropsRoute path="/add-special" component={AddWeeklySpecialForm} restaurantsList={this.state.restaurantsList} addSpecial={this.addSpecial} />} />
-                <PropsRoute path="/edit-restaurant" component={EditRestaurant} restaurantsList={this.state.restaurantsList} removeRestaurant={this.removeRestaurant} updateRestaurant={this.updateRestaurant} />} />
+                <PropsRoute
+                  path="/"
+                  exact
+                  component={Home}
+                  restaurantsList={this.state.restaurantsList}
+                  weeklySpecials={this.state.weeklySpecials}
+                  activeButton={this.state.activeButton}
+                  renderActiveButton={this.renderActiveButton}
+                />
+                <PropsRoute
+                  path="/add-restaurant"
+                  component={AddRestaurantForm}
+                  restaurantsList={this.state.restaurantsList}
+                  addRestaurant={this.addRestaurant}
+                />
+                <PropsRoute
+                  path="/add-special"
+                  component={AddWeeklySpecialForm}
+                  restaurantsList={this.state.restaurantsList}
+                  addSpecial={this.addSpecial}
+                />} />
+                <PropsRoute
+                  path="/edit-restaurant"
+                  component={EditRestaurant}
+                  restaurantsList={this.state.restaurantsList}
+                  weeklySpecials={this.state.weeklySpecials}
+                  editRestaurantKey={this.state.editRestaurantKey}
+                  editRestaurant={this.editRestaurant}
+                  resetRestaurantKey={this.resetRestaurantKey}
+                  removeRestaurant={this.removeRestaurant}
+                  updateRestaurant={this.updateRestaurant}
+                  removeSpecial={this.removeSpecial}
+                  updateSpecial={this.updateSpecial}
+                />} />
               </Switch>
             </div>
           </div>
         </div>
-      </BrowserRouter>;
+      </BrowserRouter>
+    );
   }
 }
 

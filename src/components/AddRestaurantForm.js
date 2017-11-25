@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class AddRestaurantForm extends Component {
     constructor() {
@@ -46,6 +47,10 @@ class AddRestaurantForm extends Component {
         </form>
       </div>;
   }
+}
+
+AddRestaurantForm.propTypes = {
+  addRestaurant: PropTypes.func.isRequired
 }
 
 export default AddRestaurantForm;
