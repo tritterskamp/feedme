@@ -16,24 +16,25 @@ class AllRestaurants extends Component {
     }
 
     // Render the output
-    renderAllRestaurants(key) {
-        const restaurant = this.props.restaurantsList[key];        
+    renderAllRestaurants(key, restaurantsList) {
+        const restaurant = restaurantsList[key];        
         return (
-        <li className="restaurant" key={key}>
+        <p className="restaurant" key={key}>
             <a href={restaurant.restaurantWebsite} target="_blank">
             {restaurant.restaurantName}
             </a>
-        </li>
+        </p>
         );
     }
 
     render() {
-        const restaurantsList = this.props.restaurantsList;
+        const restaurantsList = sortAlphabetically(this.props.restaurantsList, "restaurantName");
+
         // Build an array of our list of restaurants keys and then render the output
-        return <ul className="all-restaurants list-unstyled">
+        return <div className="all-restaurants">
             {Object.keys(restaurantsList)
-              .map(this.renderAllRestaurants)}
-          </ul>;
+            .map(key => this.renderAllRestaurants(key, restaurantsList))}
+          </div>;
     }
 }
 
