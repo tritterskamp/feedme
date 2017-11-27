@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { weekdays } from "../helpers"
+import { weekdays, sortAlphabetically } from "../helpers"
 
 class AddWeeklySpecialForm extends Component {
   constructor() {
@@ -23,7 +23,7 @@ class AddWeeklySpecialForm extends Component {
   }
 
   render() {
-    const restaurantsList = this.props.restaurantsList;
+    const restaurantsList = sortAlphabetically(this.props.restaurantsList, "restaurantName");
     return <div>
         <h1 className="text-center">Add a weekly special</h1>
         <form ref={input => (this.newRestaurantForm = input)} className="form-block js-add-new" onSubmit={e => this.addNewSubmit(e, this.restaurantName.id)}>

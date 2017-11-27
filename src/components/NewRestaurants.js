@@ -31,11 +31,16 @@ class NewRestaurants extends Component {
     // Return array of restaurant keys where haveVisited === false
     const newRestaurants = Object.keys(this.props.restaurantsList).filter(
       key => this.props.restaurantsList[key].haveVisited === "false"
-    );
+    );    
     // Return array of specified number of randomized restaurant keys
     const randomRestaurants = randomListFromArray(newRestaurants, 3);
     // Render output of our new random restaurants
-    return <div>{randomRestaurants.map(this.renderNewRestaurants)}</div>;
+    return <div>{randomRestaurants.length > 0 ? (
+      randomRestaurants.map(this.renderNewRestaurants)
+    ) : (
+      <p>Sorry, there are no new restaurants available. Try something tried and true!</p> 
+    )
+    }</div>;
   }
 }
 

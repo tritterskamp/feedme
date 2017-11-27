@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { sortAlphabetically } from "../helpers"
 import RestaurantDetails from "../components/RestaurantDetails";
 import SpecialDetails from "../components/SpecialDetails";
 
@@ -37,7 +38,10 @@ class EditRestaurant extends Component {
 
   render() {
     const restaurantsList = this.props.restaurantsList;
+    // the problem here is that the way the sortAlphabetically method works returns a newly sorted array and the key no longer matches up with the original state key, which causes issues in how edit restaurant and specials details render... thinking we either need to sort the restaurantsList at the top level (App.js) and save state (but then it expects to receive an object not array) or think of a different way to pass in the edit restaurant key
+    const alphabetizedList = sortAlphabetically(restaurantsList, "restaurantName");
     const restaurantKey = this.props.editRestaurantKey;
+    
     const specials = Object.keys(this.props.weeklySpecials).filter(key => this.props.weeklySpecials[key].restaurantKey === restaurantKey);
     return <div>
         <h1 className="text-center">Edit a Restaurant</h1>
@@ -48,7 +52,7 @@ class EditRestaurant extends Component {
               <option>Select a Restaurant</option>
               {Object.keys(restaurantsList).map(key => (
                 <option key={key} value={key}>
-                  {restaurantsList[key].restaurantName}
+                {restaurantsList[key].restaurantName}
                 </option>
               ))}
             </select>

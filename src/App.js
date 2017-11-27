@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Link, NavLink, Switch, Route } from "react-router-dom";
 import base from "./base";
+import { sortAlphabetically } from "./helpers"
 import Home from "./components/Home";
 import AddRestaurantForm from "./components/AddRestaurantForm";
 import AddWeeklySpecialForm from "./components/AddWeeklySpecialForm";
@@ -35,6 +36,7 @@ class App extends Component {
     };
 
     // Bind methods:
+    this.formatRestaurantsList = this.formatRestaurantsList.bind(this);    
     this.addRestaurant = this.addRestaurant.bind(this);
     this.addSpecial = this.addSpecial.bind(this);
     this.editRestaurant = this.editRestaurant.bind(this);
@@ -47,6 +49,7 @@ class App extends Component {
   }
 
   componentWillMount() {
+    //this.formatRestaurantsList();
     //syncs state with firebase data
     base.syncState("restaurants", {
       context: this,
@@ -56,6 +59,16 @@ class App extends Component {
       context: this,
       state: "weeklySpecials"
     });
+  }
+
+  // Format restaurantsList 
+  formatRestaurantsList() {
+    let restaurantsList = { ...this.state.restaurantsList };
+    restaurantsList = sortAlphabetically(restaurantsList, "restaurantName");
+
+    // set state
+    this.setState({ restaurantsList });
+    console.log(this.state.restaurantsList)
   }
 
   // Add new functions
@@ -69,7 +82,6 @@ class App extends Component {
     this.setState({ restaurantsList });
   }
 
-  // Add new functions
   addSpecial(restaurant, key) {
     // update our state - make a copy first, this is best practice:
     const weeklySpecials = { ...this.state.weeklySpecials };
@@ -80,6 +92,7 @@ class App extends Component {
     this.setState({ weeklySpecials });
   }
 
+  // Edit/remove functions
   editRestaurant(key) {
     this.setState({
       editRestaurantKey: key

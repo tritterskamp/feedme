@@ -29,11 +29,14 @@ class AllRestaurants extends Component {
 
     render() {
         const restaurantsList = sortAlphabetically(this.props.restaurantsList, "restaurantName");
-
         // Build an array of our list of restaurants keys and then render the output
         return <div className="all-restaurants">
-            {Object.keys(restaurantsList)
-            .map(key => this.renderAllRestaurants(key, restaurantsList))}
+            {restaurantsList.length > 0 ? (
+                Object.keys(restaurantsList).map(key => this.renderAllRestaurants(key, restaurantsList))
+            ) : (
+                <p>Sorry, there are no restaurants available.</p>
+            )
+            }
           </div>;
     }
 }
