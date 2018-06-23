@@ -27,7 +27,11 @@ export function sortAlphabetically(data, attr) {
     var item = obj[id];
     result.push(item);
   }
-  return result;
+  var resultObj = result.reduce(function(acc, cur, i) {
+    acc[i] = cur;
+    return acc;
+  }, {});
+  return resultObj;
 }
 
 export const weekdays = [

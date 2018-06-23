@@ -23,7 +23,8 @@ class AddWeeklySpecialForm extends Component {
   }
 
   render() {
-    const restaurantsList = sortAlphabetically(this.props.restaurantsList, "restaurantName");
+    //const restaurantsList = sortAlphabetically(this.props.restaurantsList, "restaurantName");
+    const restaurantsList = this.props.restaurantsList;
     return <div>
         <h1 className="text-center">Add a weekly special</h1>
         <form ref={input => (this.newRestaurantForm = input)} className="form-block js-add-new" onSubmit={e => this.addNewSubmit(e, this.restaurantName.id)}>

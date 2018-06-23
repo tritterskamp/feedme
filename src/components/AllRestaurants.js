@@ -17,12 +17,11 @@ class AllRestaurants extends Component {
 
     // Render the output
     renderAllRestaurants(key, restaurantsList) {
-        const restaurant = restaurantsList[key];        
+        const restaurant = restaurantsList[key];
+        const hasWebsite = restaurant.restaurantWebsite.length > 0 ? true : false;        
         return (
         <p className="restaurant" key={key}>
-            <a href={restaurant.restaurantWebsite} target="_blank">
-            {restaurant.restaurantName}
-            </a>
+            { hasWebsite ?  <a href={restaurant.restaurantWebsite} target="_blank">{restaurant.restaurantName}</a> :  restaurant.restaurantName }
         </p>
         );
     }
@@ -31,12 +30,13 @@ class AllRestaurants extends Component {
         const restaurantsList = sortAlphabetically(this.props.restaurantsList, "restaurantName");
         // Build an array of our list of restaurants keys and then render the output
         return <div className="all-restaurants">
-            {restaurantsList.length > 0 ? (
-                Object.keys(restaurantsList).map(key => this.renderAllRestaurants(key, restaurantsList))
+            {Object.keys(restaurantsList).length > 0 ? (
+              Object.keys(restaurantsList).map(key =>
+                this.renderAllRestaurants(key, restaurantsList)
+              )
             ) : (
-                <p>Sorry, there are no restaurants available.</p>
-            )
-            }
+              <p>Sorry, there are no restaurants available.</p>
+            )}
           </div>;
     }
 }

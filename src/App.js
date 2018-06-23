@@ -49,7 +49,6 @@ class App extends Component {
   }
 
   componentWillMount() {
-    //this.formatRestaurantsList();
     //syncs state with firebase data
     base.syncState("restaurants", {
       context: this,
@@ -59,15 +58,20 @@ class App extends Component {
       context: this,
       state: "weeklySpecials"
     });
+    this.formatRestaurantsList();
+    
   }
 
   // Format restaurantsList 
   formatRestaurantsList() {
     let restaurantsList = { ...this.state.restaurantsList };
+    console.log(restaurantsList);
+
     restaurantsList = sortAlphabetically(restaurantsList, "restaurantName");
+    console.log(restaurantsList);
 
     // set state
-    this.setState({ restaurantsList });
+    this.setState(prevState => {restaurantsList});
     console.log(this.state.restaurantsList)
   }
 
