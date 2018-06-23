@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Link, NavLink, Switch, Route } from "react-router-dom";
-import base from "./base";
+import base, { auth, provider } from "./base";
 import { sortAlphabetically } from "./helpers"
 import Home from "./components/Home";
 import AddRestaurantForm from "./components/AddRestaurantForm";
@@ -32,7 +32,8 @@ class App extends Component {
       restaurantsList: {},
       weeklySpecials: {},
       activeButton: "",
-      editRestaurantKey: ""
+      editRestaurantKey: "",
+      user: null
     };
 
     // Bind methods:
@@ -46,6 +47,8 @@ class App extends Component {
     this.removeSpecial = this.removeSpecial.bind(this);
     this.updateSpecial = this.updateSpecial.bind(this);
     this.renderActiveButton = this.renderActiveButton.bind(this);
+    this.login = this.login.bind(this); 
+    this.logout = this.logout.bind(this); 
   }
 
   componentWillMount() {
@@ -58,6 +61,14 @@ class App extends Component {
     base.syncState("weeklySpecials", {
       context: this,
       state: "weeklySpecials"
+    });
+  }
+
+  componentDidMount() {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({ user });
+      } 
     });
   }
 
@@ -144,89 +155,99 @@ class App extends Component {
     });
   }
 
+  logout() {
+    auth.signOut()
+    .then(() => {
+      this.setState({
+        user: null
+      });
+    });
+  }
+  login() {
+    auth.signInWithRedirect(provider) 
+      .then((result) => {
+        const user = result.user;
+        this.setState({
+          user
+        });
+      });
+  }
+
   render() {
     return (
       <BrowserRouter>
         <div className="App">
-          <nav className="navbar navbar-inverse">
-            <div className="container">
-              <div className="navbar-header">
-                <button
-                  type="button"
-                  className="navbar-toggle collapsed"
-                  data-toggle="collapse"
-                  data-target="#navbar"
-                  aria-expanded="false"
-                  aria-controls="navbar"
-                >
-                  <span className="sr-only">Toggle navigation</span>
-                  <span className="icon-bar" />
-                  <span className="icon-bar" />
-                  <span className="icon-bar" />
-                </button>
-                <Link to="/" className="navbar-brand">
-                  Restaurant Picker!
-                </Link>
-              </div>
-              <div id="navbar" className="collapse navbar-collapse">
-                <ul className="nav navbar-nav">
-                  <li>
-                    <NavLink to="/" exact>
-                      Home
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/add-restaurant">Add a Restaurant</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/add-special">Add a Special</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/edit-restaurant">Edit a Restaurant</NavLink>
-                  </li>
-                </ul>
-              </div>
+          <nav className="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar justify-content-between">
+            <Link to="/" className="navbar-brand mr-0 mr-md-2">
+              Restaurant Picker!
+            </Link>
+            <div className="navbar-nav-scroll">
+              <ul className="navbar-nav bd-navbar-nav flex-row">
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/" exact>
+                    Home
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/add-restaurant">Add a Restaurant</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/add-special">Add a Special</NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/edit-restaurant">Edit a Restaurant</NavLink>
+                </li>
+              </ul>
             </div>
+            <button className="btn btn-secondary d-lg-inline-block" onClick={this.logout}>Log Out</button>
           </nav>
-
           <div className="container">
             <div className="row">
-              <Switch>
-                <PropsRoute
-                  path="/"
-                  exact
-                  component={Home}
-                  restaurantsList={this.state.restaurantsList}
-                  weeklySpecials={this.state.weeklySpecials}
-                  activeButton={this.state.activeButton}
-                  renderActiveButton={this.renderActiveButton}
-                />
-                <PropsRoute
-                  path="/add-restaurant"
-                  component={AddRestaurantForm}
-                  restaurantsList={this.state.restaurantsList}
-                  addRestaurant={this.addRestaurant}
-                />
-                <PropsRoute
-                  path="/add-special"
-                  component={AddWeeklySpecialForm}
-                  restaurantsList={this.state.restaurantsList}
-                  addSpecial={this.addSpecial}
-                />} />
-                <PropsRoute
-                  path="/edit-restaurant"
-                  component={EditRestaurant}
-                  restaurantsList={this.state.restaurantsList}
-                  weeklySpecials={this.state.weeklySpecials}
-                  editRestaurantKey={this.state.editRestaurantKey}
-                  editRestaurant={this.editRestaurant}
-                  resetRestaurantKey={this.resetRestaurantKey}
-                  removeRestaurant={this.removeRestaurant}
-                  updateRestaurant={this.updateRestaurant}
-                  removeSpecial={this.removeSpecial}
-                  updateSpecial={this.updateSpecial}
-                />} />
-              </Switch>
+              {this.state.user ?
+                <div className="col">
+                  <Switch>
+                    <PropsRoute
+                      path="/"
+                      exact
+                      component={Home}
+                      restaurantsList={this.state.restaurantsList}
+                      weeklySpecials={this.state.weeklySpecials}
+                      activeButton={this.state.activeButton}
+                      renderActiveButton={this.renderActiveButton}
+                    />
+                    <PropsRoute
+                      path="/add-restaurant"
+                      component={AddRestaurantForm}
+                      restaurantsList={this.state.restaurantsList}
+                      addRestaurant={this.addRestaurant}
+                    />
+                    <PropsRoute
+                      path="/add-special"
+                      component={AddWeeklySpecialForm}
+                      restaurantsList={this.state.restaurantsList}
+                      addSpecial={this.addSpecial}
+                    />
+                    <PropsRoute
+                      path="/edit-restaurant"
+                      component={EditRestaurant}
+                      restaurantsList={this.state.restaurantsList}
+                      weeklySpecials={this.state.weeklySpecials}
+                      editRestaurantKey={this.state.editRestaurantKey}
+                      editRestaurant={this.editRestaurant}
+                      resetRestaurantKey={this.resetRestaurantKey}
+                      removeRestaurant={this.removeRestaurant}
+                      updateRestaurant={this.updateRestaurant}
+                      removeSpecial={this.removeSpecial}
+                      updateSpecial={this.updateSpecial}
+                    />
+                  </Switch>
+                </div>
+                :
+                <div className="text-center col">
+                  <h1>Please log in</h1>
+                  <button className="btn btn-secondary" onClick={this.login}>Log In</button>              
+                </div>
+              }
             </div>
           </div>
         </div>

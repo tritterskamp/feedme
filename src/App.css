@@ -1,16 +1,37 @@
+/* Nav styles */
+.navbar-dark {
+  background:#333;
+}
+@media (max-width: 991.98px) {
+  .bd-navbar .navbar-nav-scroll {
+    max-width: 100%;
+    height: 2.5rem;
+    margin-top: .25rem;
+    overflow: hidden;
+    font-size: .875rem;
+}
+  .bd-navbar .navbar-nav-scroll .navbar-nav {
+      padding-bottom: 2rem;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+  }
+}
+/* Layout styles */
+.container {
+  margin:40px auto;
+}
 .container .btn {
   margin:5px;
 }
 .row {
   margin:0 auto 20px;
 }
-.navbar-inverse .navbar-nav .active,
-.navbar-inverse .navbar-nav .active:hover,
-.navbar-inverse .navbar-nav .active:focus {
-  color: #fff;
-  background-color: #080808;
+.button-wrapper {
+  margin-bottom:40px;
 }
 
+/* Component styles */
 .all-restaurants li {
   padding: 10px;
 }

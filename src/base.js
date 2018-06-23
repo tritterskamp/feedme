@@ -8,4 +8,6 @@ var app = firebase.initializeApp({
   messagingSenderId: "628568041053"
 });
 var base = Rebase.createClass(app.database());
+export const provider = new firebase.auth.GoogleAuthProvider();
+export const auth = firebase.auth();
 export default base;
