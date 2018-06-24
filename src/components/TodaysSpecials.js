@@ -21,8 +21,11 @@ class TodaysSpecials extends Component {
     // let's check to make sure today's special corresponds to a restaurant key
     if (this.props.restaurantsList[restaurantKey]) {
       // then let's print the restaurant special available today
-      const restaurantName = this.props.restaurantsList[restaurantKey].restaurantName;
-      return <p key={key}>{special.restaurantSpecial} at {restaurantName} on {special.specialDay}</p>;
+      const restaurant = this.props.restaurantsList[restaurantKey];
+      const restaurantName = restaurant.restaurantName;
+      const hasWebsite = restaurant.restaurantWebsite.length > 0 ? true : false;     
+      return <p key={key}>{special.restaurantSpecial} at {hasWebsite ? <a href={restaurant.restaurantWebsite} target="_blank">
+{restaurantName}</a> : restaurantName } on {special.specialDay}</p>;
     }
     return false;
   }

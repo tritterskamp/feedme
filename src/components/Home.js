@@ -25,10 +25,10 @@ class Home extends Component {
             Today's Specials
           </button>
           <button className={this.props.activeButton === "showNewRestaurants" ? "active btn btn-outline-dark" : "btn btn-outline-dark"} name="showNewRestaurants" onClick={e => this.handleClick(e)}>
-            Let's Try Something New
+            Something New
           </button>
           <button className={this.props.activeButton === "showAllRestaurants" ? "active btn btn-outline-dark" : "btn btn-outline-dark"} name="showAllRestaurants" onClick={e => this.handleClick(e)}>
-            Show Me All Restaurants
+            All Restaurants
           </button>
         </div>
         <div id="results">

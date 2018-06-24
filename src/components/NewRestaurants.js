@@ -22,9 +22,8 @@ class NewRestaurants extends Component {
     return (
       <p className="restaurant" key={key} havevisited={restaurant.haveVisited}>
         { hasWebsite ?  <a href={restaurant.restaurantWebsite} target="_blank">
-          {restaurant.restaurantName}
-        </a> :
-        restaurant.restaurantName }
+          {restaurant.restaurantName}</a> :
+          restaurant.restaurantName }
       </p>
     );
   }
