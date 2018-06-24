@@ -68,13 +68,13 @@ class RestaurantDetails extends Component {
           <textarea ref={input => (this.restaurantNotes = input)} className="form-block__input form-control" rows="3" name="restaurantNotes" />
   </div>*/}
         <div className="form-group">
-          <button className="form-block__button btn btn-default" type="submit" onClick={e => this.updateHandler(e, key)}>
+          <button className="form-block__button btn btn-outline-dark" type="submit" onClick={e => this.updateHandler(e, key)}>
             Update
           </button>
-          <button className="form-block__button btn btn-default" type="submit" onClick={() => this.removeHandler(key)}>
+          <button className="form-block__button btn btn-outline-dark" type="submit" onClick={() => this.removeHandler(key)}>
             Remove
           </button>
-          <button className="form-block__button btn btn-default" type="submit" onClick={() => this.props.resetForm()}>
+          <button className="form-block__button btn btn-outline-dark" type="submit" onClick={() => this.props.resetForm()}>
             Reset
           </button>
         </div>

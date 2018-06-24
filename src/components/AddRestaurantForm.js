@@ -40,7 +40,7 @@ class AddRestaurantForm extends Component {
             </select>
           </div>
           <div className="form-group">
-            <button className="form-block__button btn btn-default" type="submit">
+            <button className="form-block__button btn btn-outline-dark" type="submit">
               Submit
             </button>
           </div>

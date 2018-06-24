@@ -82,14 +82,14 @@ class RestaurantDetails extends Component {
         </div>
         <div className="form-group">
           <button
-            className="form-block__button btn btn-default"
+            className="form-block__button btn btn-outline-dark"
             type="submit"
             onClick={e => this.updateHandler(e, specialKey, restaurantKey)}
           >
             Update
           </button>
           <button
-            className="form-block__button btn btn-default"
+            className="form-block__button btn btn-outline-dark"
             type="submit"
             onClick={() => this.removeHandler(specialKey)}
           >

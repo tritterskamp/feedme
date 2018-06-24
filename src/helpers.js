@@ -1,8 +1,8 @@
 export function sortAlphabetically(data, attr) {
   var arr = [];
-  for (var prop in data) {
+  for (let prop in data) {
     if (data.hasOwnProperty(prop)) {
-      var obj = {};
+      let obj = {};
       obj[prop] = data[prop];
       obj.tempSortName = data[prop][attr].toLowerCase();
       arr.push(obj);
@@ -17,9 +17,9 @@ export function sortAlphabetically(data, attr) {
 
   var result = [];
   for (var i = 0, l = arr.length; i < l; i++) {
-    var obj = arr[i];
+    let obj = arr[i];
     delete obj.tempSortName;
-    for (var prop in obj) {
+    for (let prop in obj) {
       if (obj.hasOwnProperty(prop)) {
         var id = prop;
       }

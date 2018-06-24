@@ -18,20 +18,20 @@ class Home extends Component {
   }
 
   render() {
-    return <div className="text-center">
+    return <div className="home text-center">
         <h1>Where should we go for dinner?</h1>
-        <div className="row">
-          <button className={this.props.activeButton === "showTodaysSpecials" ? "active btn btn-default" : "btn btn-default"} name="showTodaysSpecials" onClick={e => this.handleClick(e)}>
+        <div className="button-wrapper">
+          <button className={this.props.activeButton === "showTodaysSpecials" ? "active btn btn-outline-dark" : "btn btn-outline-dark"} name="showTodaysSpecials" onClick={e => this.handleClick(e)}>
             Today's Specials
           </button>
-          <button className={this.props.activeButton === "showNewRestaurants" ? "active btn btn-default" : "btn btn-default"} name="showNewRestaurants" onClick={e => this.handleClick(e)}>
+          <button className={this.props.activeButton === "showNewRestaurants" ? "active btn btn-outline-dark" : "btn btn-outline-dark"} name="showNewRestaurants" onClick={e => this.handleClick(e)}>
             Let's Try Something New
           </button>
-          <button className={this.props.activeButton === "showAllRestaurants" ? "active btn btn-default" : "btn btn-default"} name="showAllRestaurants" onClick={e => this.handleClick(e)}>
+          <button className={this.props.activeButton === "showAllRestaurants" ? "active btn btn-outline-dark" : "btn btn-outline-dark"} name="showAllRestaurants" onClick={e => this.handleClick(e)}>
             Show Me All Restaurants
           </button>
         </div>
-        <div id="results" className="row">
+        <div id="results">
           {this.props.activeButton === "showAllRestaurants" ? <AllRestaurants restaurantsList={this.props.restaurantsList} /> : this.props.activeButton === "showNewRestaurants" ? <NewRestaurants restaurantsList={this.props.restaurantsList} /> : this.props.activeButton === "showTodaysSpecials" ? <TodaysSpecials restaurantsList={this.props.restaurantsList} weeklySpecials={this.props.weeklySpecials} /> : null}
         </div>
       </div>;
