@@ -75,15 +75,12 @@ class App extends Component {
 
   // Format restaurantsList 
   formatRestaurantsList() {
-    let restaurantsList = { ...this.state.restaurantsList };
-    console.log(restaurantsList);
-
-    restaurantsList = sortAlphabetically(restaurantsList, "restaurantName");
-    console.log(restaurantsList);
-
-    // set state
-    this.setState(prevState => {restaurantsList});
-    console.log(this.state.restaurantsList)
+      let restaurantsList = { ...this.state.restaurantsList };
+      restaurantsList = sortAlphabetically(restaurantsList, "restaurantName");
+  
+      // set state
+      this.setState({ restaurantsList });
+      console.log(this.state.restaurantsList)
   }
 
   // Add new functions

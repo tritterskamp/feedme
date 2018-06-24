@@ -18,11 +18,13 @@ class NewRestaurants extends Component {
   // Render the output
   renderNewRestaurants(key) {
     const restaurant = this.props.restaurantsList[key];
+    const hasWebsite = restaurant.restaurantWebsite.length > 0 ? true : false;        
     return (
       <p className="restaurant" key={key} havevisited={restaurant.haveVisited}>
-        <a href={restaurant.restaurantWebsite} target="_blank">
+        { hasWebsite ?  <a href={restaurant.restaurantWebsite} target="_blank">
           {restaurant.restaurantName}
-        </a>
+        </a> :
+        restaurant.restaurantName }
       </p>
     );
   }
