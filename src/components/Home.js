@@ -19,20 +19,25 @@ class Home extends Component {
 
   render() {
     return <div className="home text-center">
-        <h1>Where should we go for dinner?</h1>
-        <div className="button-wrapper">
-          <button className={this.props.activeButton === "showTodaysSpecials" ? "active btn btn-outline-dark" : "btn btn-outline-dark"} name="showTodaysSpecials" onClick={e => this.handleClick(e)}>
-            Today's Specials
-          </button>
-          <button className={this.props.activeButton === "showNewRestaurants" ? "active btn btn-outline-dark" : "btn btn-outline-dark"} name="showNewRestaurants" onClick={e => this.handleClick(e)}>
-            Something New
-          </button>
-          <button className={this.props.activeButton === "showAllRestaurants" ? "active btn btn-outline-dark" : "btn btn-outline-dark"} name="showAllRestaurants" onClick={e => this.handleClick(e)}>
-            All Restaurants
-          </button>
-        </div>
+        <ul className="nav nav-tabs">
+          <li className="nav-item">
+            <a className={this.props.activeButton === "showTodaysSpecials" ? "active nav-link" : "nav-link"} name="showTodaysSpecials" onClick={e => this.handleClick(e)}>
+              Specials
+            </a>
+          </li>
+          <li className="nav-item">            
+            <a className={this.props.activeButton === "showNewRestaurants" ? "active nav-link" : "nav-link"} name="showNewRestaurants" onClick={e => this.handleClick(e)}>
+              New
+            </a>
+          </li>
+          <li className="nav-item">            
+            <a className={this.props.activeButton === "showAllRestaurants" ? "active nav-link" : "nav-link"} name="showAllRestaurants" onClick={e => this.handleClick(e)}>
+              All
+            </a>
+          </li>
+        </ul>
         <div id="results">
-          {this.props.activeButton === "showAllRestaurants" ? <AllRestaurants restaurantsList={this.props.restaurantsList} /> : this.props.activeButton === "showNewRestaurants" ? <NewRestaurants restaurantsList={this.props.restaurantsList} /> : this.props.activeButton === "showTodaysSpecials" ? <TodaysSpecials restaurantsList={this.props.restaurantsList} weeklySpecials={this.props.weeklySpecials} /> : null}
+          {this.props.activeButton === "showAllRestaurants" ? <AllRestaurants restaurantsList={this.props.restaurantsList} /> : this.props.activeButton === "showNewRestaurants" ? <NewRestaurants restaurantsList={this.props.restaurantsList} /> : this.props.activeButton === "showTodaysSpecials" ? <TodaysSpecials restaurantsList={this.props.restaurantsList} weeklySpecials={this.props.weeklySpecials} /> : <p>Hi {this.props.user.displayName}!<br /> Where should we eat?</p>}
         </div>
       </div>;
   }

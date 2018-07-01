@@ -17,6 +17,10 @@
       -webkit-overflow-scrolling: touch;
   }
 }
+.nav-tabs .nav-item .nav-link {
+  color:#999;
+}
+
 /* Layout styles */
 .container {
   margin:40px auto;
@@ -32,6 +36,9 @@
 }
 
 /* Component styles */
+#results  {
+  margin:30px auto;
+}
 .all-restaurants li {
   padding: 10px;
 }

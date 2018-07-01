@@ -215,6 +215,7 @@ class App extends Component {
                       weeklySpecials={this.state.weeklySpecials}
                       activeButton={this.state.activeButton}
                       renderActiveButton={this.renderActiveButton}
+                      user={this.state.user}
                     />
                     <PropsRoute
                       path="/add-restaurant"
