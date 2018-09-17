@@ -19,8 +19,9 @@ class AllRestaurants extends Component {
     renderAllRestaurants(key, restaurantsList) {
         const restaurant = restaurantsList[key];
         const hasWebsite = restaurant.restaurantWebsite.length > 0 ? true : false;        
+        const haveVisited = restaurant.haveVisited === 'true' ? true : false;
         return (
-        <p className="restaurant" key={key}>
+        <p className={haveVisited ? "restaurant" : "restaurant restaurant--new"} key={key}>
             { hasWebsite ?  <a href={restaurant.restaurantWebsite} target="_blank">{restaurant.restaurantName}</a> :  restaurant.restaurantName }
         </p>
         );
