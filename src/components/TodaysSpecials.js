@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { getCurrentWeekday } from "../helpers";
+import { getCurrentWeekday, getQueryString, toTitleCase } from "../helpers";
 
 class TodaysSpecials extends Component {
   /*
@@ -12,6 +12,7 @@ class TodaysSpecials extends Component {
   constructor() {
     super();
     this.renderTodaysSpecials = this.renderTodaysSpecials.bind(this);
+    this.getTodaysSpecialsList = this.getTodaysSpecialsList.bind(this);
   }
 
   // Render the output
@@ -30,8 +31,18 @@ class TodaysSpecials extends Component {
     return false;
   }
 
-  render() {
-    const todaysSpecialsList = Object.keys(this.props.weeklySpecials).filter(key => this.props.weeklySpecials[key].specialDay === getCurrentWeekday());
+  // Get all specials based on query string param or the current day
+  getTodaysSpecialsList() {
+    const queriedDay = getQueryString('day', window.location.href);
+    if(queriedDay) {
+      return Object.keys(this.props.weeklySpecials).filter(key => this.props.weeklySpecials[key].specialDay === toTitleCase(queriedDay));
+    } else {
+      return Object.keys(this.props.weeklySpecials).filter(key => this.props.weeklySpecials[key].specialDay === getCurrentWeekday());
+    }    
+  }
+
+  render() {    
+    const todaysSpecialsList = this.getTodaysSpecialsList();
     // Build an array of our list of restaurants keys and then render the output
     return <div>
         {todaysSpecialsList.length > 0 ? (

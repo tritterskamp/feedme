@@ -51,6 +51,23 @@ export function getCurrentWeekday() {
   return weekdays[currentDay];
 }
 
+// Get query string field
+export function getQueryString( field, url ) {
+	var href = url ? url : window.location.href;
+	var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+  var string = reg.exec(href);
+	return string ? string[1] : null;
+};
+
+// Convert string to title case
+export function toTitleCase(str) {
+	str = str.toLowerCase().split(' ');
+	for (var i = 0; i < str.length; i++) {
+		str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+	}
+	return str.join(' ');
+};
+
 // Randomize list
 export function randomListFromArray(array, limit) {
     // Random Item from an Array, with no repeats
