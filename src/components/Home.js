@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import AllRestaurants from "../components/AllRestaurants";
-import NewRestaurants from "../components/NewRestaurants";
+import RandomRestaurants from "../components/RandomRestaurants";
 import TodaysSpecials from "../components/TodaysSpecials";
 
 
@@ -26,8 +26,8 @@ class Home extends Component {
             </a>
           </li>
           <li className="nav-item">            
-            <a className={this.props.activeButton === "showNewRestaurants" ? "active nav-link" : "nav-link"} name="showNewRestaurants" onClick={e => this.handleClick(e)}>
-              New
+            <a className={this.props.activeButton === "showRandomRestaurants" ? "active nav-link" : "nav-link"} name="showRandomRestaurants" onClick={e => this.handleClick(e)}>
+              Random
             </a>
           </li>
           <li className="nav-item">            
@@ -37,7 +37,7 @@ class Home extends Component {
           </li>
         </ul>
         <div id="results">
-          {this.props.activeButton === "showAllRestaurants" ? <AllRestaurants restaurantsList={this.props.restaurantsList} /> : this.props.activeButton === "showNewRestaurants" ? <NewRestaurants restaurantsList={this.props.restaurantsList} /> : this.props.activeButton === "showTodaysSpecials" ? <TodaysSpecials restaurantsList={this.props.restaurantsList} weeklySpecials={this.props.weeklySpecials} /> : <p>Hi {this.props.user.displayName}!<br /> Where should we eat?</p>}
+          {this.props.activeButton === "showAllRestaurants" ? <AllRestaurants restaurantsList={this.props.restaurantsList} /> : this.props.activeButton === "showRandomRestaurants" ? <RandomRestaurants restaurantsList={this.props.restaurantsList} /> : this.props.activeButton === "showTodaysSpecials" ? <TodaysSpecials restaurantsList={this.props.restaurantsList} weeklySpecials={this.props.weeklySpecials} /> : <p>Hi {this.props.user.displayName}!<br /> Where should we eat?</p>}
         </div>
       </div>;
   }

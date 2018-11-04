@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Restaurant from "../components/Restaurant";
+import Restaurant from "./Restaurant";
 import { sortAlphabetically } from "../helpers"
 
 class AllRestaurants extends Component {
