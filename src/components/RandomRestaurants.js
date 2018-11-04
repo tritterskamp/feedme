@@ -4,11 +4,6 @@ import Restaurant from "./Restaurant";
 import { randomListFromArray } from "../helpers"
 
 class RandomRestaurants extends Component {
-  /*
-  First, we want to filter this.props.restaurantsList to only include restaurants that haveVisited === "false"
-  Then, we pass that array through the randomListFromArray function
-  Then, we output that return on screen
-  */
 
   render() {
     // Return array of specified number of randomized restaurant keys
