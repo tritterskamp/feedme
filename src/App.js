@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Link, NavLink, Switch, Route } from "react-router-dom";
 import base, { auth, provider } from "./base";
-import { sortAlphabetically } from "./helpers"
 import Home from "./components/Home";
 import AddRestaurantForm from "./components/AddRestaurantForm";
 import AddWeeklySpecialForm from "./components/AddWeeklySpecialForm";
@@ -37,7 +36,6 @@ class App extends Component {
     };
 
     // Bind methods:
-    this.formatRestaurantsList = this.formatRestaurantsList.bind(this);    
     this.addRestaurant = this.addRestaurant.bind(this);
     this.addSpecial = this.addSpecial.bind(this);
     this.editRestaurant = this.editRestaurant.bind(this);
@@ -61,7 +59,6 @@ class App extends Component {
       context: this,
       state: "weeklySpecials"
     });
-    this.formatRestaurantsList();
     
   }
 
@@ -73,23 +70,12 @@ class App extends Component {
     });
   }
 
-  // Format restaurantsList 
-  formatRestaurantsList() {
-      let restaurantsList = { ...this.state.restaurantsList };
-      restaurantsList = sortAlphabetically(restaurantsList, "restaurantName");
-  
-      // set state
-      this.setState({ restaurantsList });
-      console.log(this.state.restaurantsList)
-  }
-
   // Add new functions
   addRestaurant(restaurant) {
     // update our state - make a copy first, this is best practice:
     const restaurantsList = { ...this.state.restaurantsList };
     // add in our new restaurant
-    const timestamp = Date.now();
-    restaurantsList[`restaurant-${timestamp}`] = restaurant;
+    restaurantsList[restaurant.restaurantKey] = restaurant;
     // set state
     this.setState({ restaurantsList });
   }

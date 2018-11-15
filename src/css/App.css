@@ -1,4 +1,4 @@
-/* Nav styles */
+/* Nav styles - bootstrap overrides */
 .navbar-dark {
   background: #333; }
 
@@ -9,18 +9,17 @@
     margin-top: .25rem;
     overflow: hidden;
     font-size: .875rem; }
-  .bd-navbar .navbar-nav-scroll .navbar-nav {
-    padding-bottom: 2rem;
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch; } }
+    .bd-navbar .navbar-nav-scroll .navbar-nav {
+      padding-bottom: 2rem;
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch; } }
 
 .nav-tabs .nav-item .nav-link {
   color: #999;
   cursor: pointer; }
-
-.nav-tabs .nav-item .nav-link.active {
-  color: #495057; }
+  .nav-tabs .nav-item .nav-link.active {
+    color: #495057; }
 
 /* Layout styles */
 .container {

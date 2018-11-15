@@ -10,11 +10,15 @@ class AddRestaurantForm extends Component {
     }
   addNewSubmit(e) {
     e.preventDefault();
+    // generate unique restaurant key
+    const timestamp = Date.now();
+    const restaurantKey = `restaurant-${timestamp}`;
     // Create object of new restaurant data from form
     const newRestaurant = {
       restaurantName: this.restaurantName.value,
       restaurantWebsite: this.restaurantWebsite.value,
-      haveVisited: this.haveVisited.value
+      haveVisited: this.haveVisited.value,
+      restaurantKey: restaurantKey
     };
     this.props.addRestaurant(newRestaurant);
     this.newRestaurantForm.reset();

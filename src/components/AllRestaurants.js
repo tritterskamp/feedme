@@ -7,7 +7,6 @@ class AllRestaurants extends Component {
     /*
     Render a list of all restaurants that are saved in our DB
     Future enhancements: 
-        - display list in alphabetical order 
         - make the details of each restaurant editable
     */
 
