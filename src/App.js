@@ -6,7 +6,7 @@ import Home from "./components/Home";
 import AddRestaurantForm from "./components/AddRestaurantForm";
 import AddWeeklySpecialForm from "./components/AddWeeklySpecialForm";
 import EditRestaurant from "./components/EditRestaurant";
-import "./App.css";
+import "./css/App.css";
 
 
 const renderMergedProps = (component, ...rest) => {
