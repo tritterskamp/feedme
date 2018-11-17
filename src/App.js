@@ -47,6 +47,8 @@ class App extends Component {
     this.renderActiveButton = this.renderActiveButton.bind(this);
     this.login = this.login.bind(this); 
     this.logout = this.logout.bind(this); 
+    this.handleClick = this.handleClick.bind(this);
+
   }
 
   componentWillMount() {
@@ -142,6 +144,11 @@ class App extends Component {
     });
   }
 
+  // Click handler
+  handleClick(e) {
+    this.renderActiveButton(e.target.name);    
+  }
+
   logout() {
     auth.signOut()
     .then(() => {
@@ -160,6 +167,8 @@ class App extends Component {
       });
   }
 
+  
+
   render() {
     let logoutButton;
     if (this.state.user) {
@@ -168,6 +177,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
+          {/* Primary navigation */}
           <nav className="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar justify-content-between">
             <Link to="/" className="navbar-brand mr-0 mr-md-2">
               Restaurant Picker!
@@ -192,6 +202,24 @@ class App extends Component {
             </div>
             <div className="navbar-button">{logoutButton}</div>
           </nav>
+          {/* Navigation tabs: */}
+          <ul className="nav nav-tabs">
+            <li className="nav-item">
+              <a className={this.activeButton === "showTodaysSpecials" ? "active nav-link" : "nav-link"} name="showTodaysSpecials" onClick={e => this.handleClick(e)}>
+                Specials
+              </a>
+            </li>
+            <li className="nav-item">            
+              <a className={this.activeButton === "showRandomRestaurants" ? "active nav-link" : "nav-link"} name="showRandomRestaurants" onClick={e => this.handleClick(e)}>
+                Random
+              </a>
+            </li>
+            <li className="nav-item">            
+              <a className={this.activeButton === "showAllRestaurants" ? "active nav-link" : "nav-link"} name="showAllRestaurants" onClick={e => this.handleClick(e)}>
+                All
+              </a>
+            </li>
+          </ul>
           <div className="container">
             <div className="row">
               {this.state.user ?

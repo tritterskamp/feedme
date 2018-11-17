@@ -1,7 +1,34 @@
-/* Nav styles - bootstrap overrides */
-.navbar-dark {
-  background: #333647; }
+body {
+  color: #1d132b; }
 
+a {
+  color: #2D4DF1; }
+  a:hover {
+    color: #2D4DF1; }
+
+.navbar-dark {
+  background: #4C62DB; }
+
+.btn-secondary {
+  background-color: #1d132b;
+  border-color: #1d132b; }
+  .btn-secondary:hover {
+    background-color: #372D45;
+    border-color: #372D45; }
+
+.nav-tabs {
+  background: #E0E1F7; }
+  .nav-tabs .nav-item .nav-link {
+    border: none;
+    color: #1d132b; }
+    .nav-tabs .nav-item .nav-link.active {
+      color: #1d132b;
+      font-weight: bold; }
+    .nav-tabs .nav-item .nav-link:focus, .nav-tabs .nav-item .nav-link:hover {
+      border: none;
+      color: #372D45; }
+
+/* Nav styles - bootstrap overrides */
 .navbar-brand, .navbar-button {
   flex: 1; }
 
@@ -11,8 +38,10 @@
 .navbar-nav-scroll {
   flex: 2; }
 
-.navbar-nav {
+.nav-tabs {
   justify-content: center; }
+  .nav-tabs .nav-item .nav-link {
+    cursor: pointer; }
 
 @media (max-width: 991.98px) {
   .bd-navbar .navbar-nav-scroll {
@@ -27,18 +56,9 @@
       white-space: nowrap;
       -webkit-overflow-scrolling: touch; } }
 
-.nav-tabs .nav-item .nav-link {
-  color: #999;
-  cursor: pointer; }
-  .nav-tabs .nav-item .nav-link.active {
-    color: #495057; }
-
-.btn-secondary {
-  background-color: #857A76;
-  border-color: #857A76; }
-  .btn-secondary:hover {
-    background-color: #6C615D;
-    border-color: #6C615D; }
+@media (min-width: 768px) {
+  .navbar-nav {
+    justify-content: center; } }
 
 /* Layout styles */
 .container {
