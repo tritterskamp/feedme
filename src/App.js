@@ -161,6 +161,10 @@ class App extends Component {
   }
 
   render() {
+    let logoutButton;
+    if (this.state.user) {
+      logoutButton = <button className="btn btn-secondary d-lg-inline-block" onClick={this.logout}>Log Out</button>;
+    }
     return (
       <BrowserRouter>
         <div className="App">
@@ -186,7 +190,7 @@ class App extends Component {
                 </li>
               </ul>
             </div>
-            <button className="btn btn-secondary d-lg-inline-block" onClick={this.logout}>Log Out</button>
+            <div className="navbar-button">{logoutButton}</div>
           </nav>
           <div className="container">
             <div className="row">

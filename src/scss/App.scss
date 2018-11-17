@@ -2,7 +2,19 @@
 
 /* Nav styles - bootstrap overrides */
 .navbar-dark {
-  background:$gray;
+  background:$darkBlue;
+}
+.navbar-brand, .navbar-button {
+  flex:1;
+}
+.navbar-button {
+  text-align:right;
+}
+.navbar-nav-scroll {
+  flex:2;
+}
+.navbar-nav {
+  justify-content:center;
 }
 @media (max-width: 991.98px) {
   .bd-navbar {
@@ -28,6 +40,14 @@
     color:#495057;
   }
 }
+.btn-secondary {
+  background-color:$tan;
+  border-color:$tan;
+  &:hover {
+    background-color:$darkTan;
+    border-color:$darkTan;
+  }
+}
   
 /* Layout styles */
 .container {
@@ -46,6 +66,7 @@
 /* Component styles */
 #results  {
   margin:30px auto;
+ 
 }
 .all-restaurants li {
   padding: 10px;

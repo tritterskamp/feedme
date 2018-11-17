@@ -17,7 +17,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "css": "node-sass src/scss/*.scss src/css/*.css",
-    "watch": "yarn css -w"
+    "watch": "yarn css -- -w"
   },
   "devDependencies": {
     "firebase": "^4.6.0"

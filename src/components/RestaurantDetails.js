@@ -43,10 +43,10 @@ class RestaurantDetails extends Component {
   }
 
   render() {
+    
     const key = this.props.restaurantKey;
     const restaurant = this.props.restaurantsList;
-    console.log(key)
-    console.log(restaurant[key])
+
     return <form ref={input => (this.editRestaurantForm = input)} className="restaurant-edit" key={key}>
         <div className="form-group">
           <label htmlFor="restaurantName">Restaurant Name:</label>

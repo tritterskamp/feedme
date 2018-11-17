@@ -37,10 +37,11 @@ class EditRestaurant extends Component {
   }
 
   render() {
-    const restaurantsList = sortAlphabetically(this.props.restaurantsList, "restaurantName");
-    const restaurantKey = this.props.editRestaurantKey;
     
+    const restaurantsList = sortAlphabetically(this.props.restaurantsList, "restaurantName");
+    const restaurantKey = this.props.editRestaurantKey;    
     const specials = Object.keys(this.props.weeklySpecials).filter(key => this.props.weeklySpecials[key].restaurantKey === restaurantKey);
+
     return <div>
         <h1 className="text-center">Edit a Restaurant</h1>
         <form ref={input => (this.restaurantSelect = input)} className="form-block js-add-new">

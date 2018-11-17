@@ -6,8 +6,10 @@ import { randomListFromArray } from "../helpers"
 class RandomRestaurants extends Component {
 
   render() {
+
     // Return array of specified number of randomized restaurant keys
     const randomRestaurants = randomListFromArray(Object.keys(this.props.restaurantsList), 3);
+
     // Render output of our new random restaurants
     return <div className="random-restaurants">
       {randomRestaurants.length > 0 ? (

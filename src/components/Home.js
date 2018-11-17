@@ -18,6 +18,7 @@ class Home extends Component {
   }
 
   render() {
+    
     return <div className="home text-center">
         <ul className="nav nav-tabs">
           <li className="nav-item">

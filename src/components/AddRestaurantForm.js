@@ -25,6 +25,7 @@ class AddRestaurantForm extends Component {
   }
 
   render() {
+    
     return <div>
         <h1 className="text-center">Add a new restaurant</h1>
         <form ref={input => (this.newRestaurantForm = input)} className="form-block js-add-new" onSubmit={e => this.addNewSubmit(e)}>

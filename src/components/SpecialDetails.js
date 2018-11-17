@@ -36,8 +36,6 @@ class RestaurantDetails extends Component {
       restaurantSpecial: this.restaurantSpecial.value,
       specialDay: this.specialDay.value
     };
-    // console.log(specialKey);
-    // console.log(specialDetails);
     this.props.updateSpecial(specialKey, specialDetails);
     // reset form and editRestaurantKey
     this.props.resetForm();
@@ -45,9 +43,11 @@ class RestaurantDetails extends Component {
   }
 
   render() {
+
     const restaurantKey = this.props.restaurantKey;
     const specialKey = this.props.specialKey;
     const special = this.props.weeklySpecials;
+
     return (
       <form
         ref={input => (this.editRestaurantForm = input)}

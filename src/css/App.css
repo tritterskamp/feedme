@@ -1,6 +1,18 @@
 /* Nav styles - bootstrap overrides */
 .navbar-dark {
-  background: #333; }
+  background: #333647; }
+
+.navbar-brand, .navbar-button {
+  flex: 1; }
+
+.navbar-button {
+  text-align: right; }
+
+.navbar-nav-scroll {
+  flex: 2; }
+
+.navbar-nav {
+  justify-content: center; }
 
 @media (max-width: 991.98px) {
   .bd-navbar .navbar-nav-scroll {
@@ -20,6 +32,13 @@
   cursor: pointer; }
   .nav-tabs .nav-item .nav-link.active {
     color: #495057; }
+
+.btn-secondary {
+  background-color: #857A76;
+  border-color: #857A76; }
+  .btn-secondary:hover {
+    background-color: #6C615D;
+    border-color: #6C615D; }
 
 /* Layout styles */
 .container {
