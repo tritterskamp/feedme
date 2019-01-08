@@ -14,7 +14,9 @@ class Restaurant extends Component {
                     { hasWebsite ?  <a href={restaurant.restaurantWebsite} target="_blank">{restaurant.restaurantName}</a> :  restaurant.restaurantName }
                 </p>
                 {/* Restaurant cuisine */}        
+                <p className="restaurant__cuisine">{restaurant.restaurantCuisine}</p>
                 {/* Restaurant neighborhood */}
+                <p className="restaurant__neighborhood">{restaurant.restaurantNeighborhood}</p>
                 {/* Edit link */}
                 <span class="small"> Edit</span>                
             </div>

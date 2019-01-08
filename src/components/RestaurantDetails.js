@@ -34,6 +34,8 @@ class RestaurantDetails extends Component {
     const restaurantDetails = {
       restaurantName: this.restaurantName.value,
       restaurantWebsite: this.restaurantWebsite.value,
+      restaurantCuisine: this.restaurantCuisine.value,
+      restaurantNeighborhood: this.restaurantNeighborhood.value,
       haveVisited: this.haveVisited.value
     };
     this.props.updateRestaurant(key, restaurantDetails);
@@ -56,6 +58,14 @@ class RestaurantDetails extends Component {
           <label htmlFor="restaurantWebsite">Restaurant Website:</label>
           <input ref={input => (this.restaurantWebsite = input)} className="form-block__input form-control" type="text" name="restaurantWebsite" defaultValue={restaurant[key].restaurantWebsite} />
         </div>
+        <div className="form-group">
+            <label htmlFor="restaurantCuisine">Restaurant Cuisine:</label>
+            <input ref={input => (this.restaurantCuisine = input)} className="form-block__input form-control" type="text" name="restaurantCuisine" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="restaurantNeighborhood">Restaurant Neighborhood:</label>
+            <input ref={input => (this.restaurantNeighborhood = input)} className="form-block__input form-control" type="text" name="restaurantNeighborhood" />
+          </div>
         <div className="form-group">
           <label htmlFor="haveVisited">Have you visited?</label>
           <select ref={input => (this.haveVisited = input)} name="haveVisited" className="form-block__select form-control" type="select" defaultValue={restaurant[key].haveVisited}>
