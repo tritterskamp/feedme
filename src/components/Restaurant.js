@@ -8,9 +8,16 @@ class Restaurant extends Component {
         const haveVisited = restaurant.haveVisited === 'true' ? true : false;
 
         return (
-            <p className={haveVisited ? "restaurant" : "restaurant restaurant--new"}>
-                { hasWebsite ?  <a href={restaurant.restaurantWebsite} target="_blank">{restaurant.restaurantName}</a> :  restaurant.restaurantName }
-            </p>
+            <div className="restaurant__card">
+                {/* Name of restaurant */}
+                <p className={haveVisited ? "restaurant" : "restaurant restaurant--new"}>
+                    { hasWebsite ?  <a href={restaurant.restaurantWebsite} target="_blank">{restaurant.restaurantName}</a> :  restaurant.restaurantName }
+                </p>
+                {/* Restaurant cuisine */}        
+                {/* Restaurant neighborhood */}
+                {/* Edit link */}
+                <span class="small"> Edit</span>                
+            </div>
         );
     }
 }
