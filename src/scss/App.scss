@@ -1,18 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik');
 @import 'partials/colors';
 
 // Color palette:
 body {
+  font-family: 'Rubik', sans-serif;
   color:$darkPurple;
 }
 a {
-  color:$blue;
+  color:$darkPurple;
+  font-weight:bold;
   &:hover {
-    color:$blue;
+    color:$darkPurple;
   }
 }
 // Top Bar
 .navbar-dark {
-  background:$bluePurple;
+  background:$darkPurpleLighten10;
 }
 .btn-secondary {
   background-color:$darkPurple;
@@ -23,20 +26,27 @@ a {
   }
 }
 
+.navbar {
+  .nav-link {
+    color:rgba(255,255,255,.5);
+    font-weight:normal;
+  }
+}
+
 // Main body tabs
 .nav-tabs {
   background:$lightPurple;
   .nav-item .nav-link {
     border:none;  
-    color:$darkPurple;
+    color: rgba($darkPurple, 0.8);
     &.active {
-      color:$darkPurple;
+      color:rgba($darkPurple, 1);
       font-weight:bold;
     }
     &:focus,
     &:hover {
       border:none;
-      color:$darkPurpleLighten10;
+      color:rgba($darkPurple, 1);
     }
   }
 }
@@ -107,7 +117,7 @@ a {
 }
 .restaurant--new::before {
   content:'New!';
-  color:red;
+  color:$bluePurple;
   font-size:10px;
   padding-right:5px;
 }
