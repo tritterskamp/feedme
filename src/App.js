@@ -45,6 +45,7 @@ class App extends Component {
     this.removeSpecial = this.removeSpecial.bind(this);
     this.updateSpecial = this.updateSpecial.bind(this);
     this.renderActiveButton = this.renderActiveButton.bind(this);
+    this.setActiveClass = this.setActiveClass.bind(this);
     this.login = this.login.bind(this); 
     this.logout = this.logout.bind(this); 
     this.handleClick = this.handleClick.bind(this);
@@ -144,6 +145,14 @@ class App extends Component {
     });
   }
 
+  setActiveClass(name) {
+    if (this.state.activeButton === name) {
+      return "active nav-link";
+    } else {
+      return "nav-link"
+    }
+  }
+
   // Click handler
   handleClick(e) {
     this.renderActiveButton(e.target.name);    
@@ -205,18 +214,23 @@ class App extends Component {
           {/* Navigation tabs: */}
           <ul className="nav nav-tabs">
             <li className="nav-item">
-              <a className={this.activeButton === "showTodaysSpecials" ? "active nav-link" : "nav-link"} name="showTodaysSpecials" onClick={e => this.handleClick(e)}>
+              <a className={this.setActiveClass("showTodaysSpecials")} name="showTodaysSpecials" onClick={e => this.handleClick(e)}>
                 Specials
               </a>
             </li>
             <li className="nav-item">            
-              <a className={this.activeButton === "showRandomRestaurants" ? "active nav-link" : "nav-link"} name="showRandomRestaurants" onClick={e => this.handleClick(e)}>
+              <a className={this.setActiveClass("showRandomRestaurants")} name="showRandomRestaurants" onClick={e => this.handleClick(e)}>
                 Random
               </a>
             </li>
             <li className="nav-item">            
-              <a className={this.activeButton === "showAllRestaurants" ? "active nav-link" : "nav-link"} name="showAllRestaurants" onClick={e => this.handleClick(e)}>
+              <a className={this.setActiveClass("showAllRestaurants")} name="showAllRestaurants" onClick={e => this.handleClick(e)}>
                 All
+              </a>
+            </li>
+            <li className="nav-item">            
+              <a className={this.setActiveClass("showNewRestaurants")} name="showNewRestaurants" onClick={e => this.handleClick(e)}>
+                New
               </a>
             </li>
           </ul>
@@ -259,7 +273,7 @@ class App extends Component {
                       updateRestaurant={this.updateRestaurant}
                       removeSpecial={this.removeSpecial}
                       updateSpecial={this.updateSpecial}
-                    />
+                    />                    
                   </Switch>
                 </div>
                 :
