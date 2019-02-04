@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import AllRestaurants from "../components/AllRestaurants";
+import NewRestaurants from "../components/NewRestaurants";
 import RandomRestaurants from "../components/RandomRestaurants";
 import TodaysSpecials from "../components/TodaysSpecials";
 
@@ -17,7 +18,7 @@ class Home extends Component {
         return <AllRestaurants restaurantsList={this.props.restaurantsList} />
       break;
       case "showNewRestaurants" :
-        return <AllRestaurants showNew={true} restaurantsList={this.props.restaurantsList} />
+        return <NewRestaurants restaurantsList={this.props.restaurantsList} />
       break;
       case "showRandomRestaurants" :
         return <RandomRestaurants restaurantsList={this.props.restaurantsList} />
