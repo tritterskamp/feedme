@@ -174,9 +174,7 @@ class App extends Component {
             <div className="navbar-nav-scroll">
               <ul className="navbar-nav bd-navbar-nav flex-row">
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/" exact>
-                    Home
-                  </NavLink>
+                  <NavLink className="nav-link" to="/" exact>Home</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/add-restaurant">Add a Restaurant</NavLink>
@@ -194,19 +192,13 @@ class App extends Component {
           {/* Navigation tabs: */}
           <ul className="nav nav-tabs">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/specials">
-                Specials
-              </NavLink>
+              <NavLink className="nav-link" to="/specials">Specials</NavLink>
             </li>
             <li className="nav-item">            
-              <NavLink className="nav-link" to="/random">
-                Random
-              </NavLink>
+              <NavLink className="nav-link" to="/random">Random</NavLink>
             </li>
             <li className="nav-item">            
-              <NavLink className="nav-link" to="/all">
-                All
-              </NavLink>
+              <NavLink className="nav-link" to="/all">All</NavLink>
             </li>
           </ul>
           <div className="container">
