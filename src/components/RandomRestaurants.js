@@ -11,7 +11,7 @@ class RandomRestaurants extends Component {
     const randomRestaurants = randomListFromArray(Object.keys(this.props.restaurantsList), 3);
 
     // Render output of our new random restaurants
-    return <div className="random-restaurants">
+    return <div className="random-restaurants text-center">
       {randomRestaurants.length > 0 ? (
         randomRestaurants.map(key => 
           <Restaurant key={key} restaurant={this.props.restaurantsList[key]} />

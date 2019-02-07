@@ -15,7 +15,7 @@ class AllRestaurants extends Component {
         const restaurantsList = sortAlphabetically(this.props.restaurantsList, "restaurantName");
 
         // Build an array of our list of restaurants keys and then render the output
-        return <div className="all-restaurants">
+        return <div className="all-restaurants text-center">
             {Object.keys(restaurantsList).length > 0 ? (
                 Object.keys(restaurantsList).map(key =>
                     <Restaurant key={key} restaurant={restaurantsList[key]} />
