@@ -46,7 +46,7 @@ class TodaysSpecials extends Component {
     const todaysSpecialsList = this.getTodaysSpecialsList();
     
     // Build an array of our list of restaurants keys and then render the output
-    return <div>
+    return <div className="specials text-center">
         {todaysSpecialsList.length > 0 ? (
           todaysSpecialsList.map(this.renderTodaysSpecials)
         ) : (

@@ -5,6 +5,9 @@ import Home from "./components/Home";
 import AddRestaurantForm from "./components/AddRestaurantForm";
 import AddWeeklySpecialForm from "./components/AddWeeklySpecialForm";
 import EditRestaurant from "./components/EditRestaurant";
+import TodaysSpecials from "./components/TodaysSpecials";
+import AllRestaurants from "./components/AllRestaurants";
+import RandomRestaurants from "./components/RandomRestaurants";
 import "./css/App.css";
 
 
@@ -44,11 +47,9 @@ class App extends Component {
     this.updateRestaurant = this.updateRestaurant.bind(this);
     this.removeSpecial = this.removeSpecial.bind(this);
     this.updateSpecial = this.updateSpecial.bind(this);
-    this.renderActiveButton = this.renderActiveButton.bind(this);
     this.setActiveClass = this.setActiveClass.bind(this);
     this.login = this.login.bind(this); 
     this.logout = this.logout.bind(this); 
-    this.handleClick = this.handleClick.bind(this);
 
   }
 
@@ -139,23 +140,12 @@ class App extends Component {
     this.setState({ weeklySpecials });
   }
 
-  renderActiveButton(target) {
-    this.setState({
-      activeButton: target
-    });
-  }
-
   setActiveClass(name) {
     if (this.state.activeButton === name) {
       return "active nav-link";
     } else {
       return "nav-link"
     }
-  }
-
-  // Click handler
-  handleClick(e) {
-    this.renderActiveButton(e.target.name);    
   }
 
   logout() {
@@ -214,19 +204,19 @@ class App extends Component {
           {/* Navigation tabs: */}
           <ul className="nav nav-tabs">
             <li className="nav-item">
-              <a className={this.setActiveClass("showTodaysSpecials")} name="showTodaysSpecials" onClick={e => this.handleClick(e)}>
+              <NavLink className={this.setActiveClass("showTodaysSpecials")} to="/specials">
                 Specials
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">            
-              <a className={this.setActiveClass("showRandomRestaurants")} name="showRandomRestaurants" onClick={e => this.handleClick(e)}>
+              <NavLink className={this.setActiveClass("showRandomRestaurants")} to="/random">
                 Random
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">            
-              <a className={this.setActiveClass("showAllRestaurants")} name="showAllRestaurants" onClick={e => this.handleClick(e)}>
+              <NavLink className={this.setActiveClass("showAllRestaurants")} to="/all">
                 All
-              </a>
+              </NavLink>
             </li>
           </ul>
           <div className="container">
@@ -241,7 +231,6 @@ class App extends Component {
                       restaurantsList={this.state.restaurantsList}
                       weeklySpecials={this.state.weeklySpecials}
                       activeButton={this.state.activeButton}
-                      renderActiveButton={this.renderActiveButton}
                       user={this.state.user}
                     />
                     <PropsRoute
@@ -268,6 +257,22 @@ class App extends Component {
                       updateRestaurant={this.updateRestaurant}
                       removeSpecial={this.removeSpecial}
                       updateSpecial={this.updateSpecial}
+                    />
+                    <PropsRoute
+                      path="/specials"
+                      component={TodaysSpecials}
+                      restaurantsList={this.state.restaurantsList}
+                      weeklySpecials={this.state.weeklySpecials}
+                    />                    
+                  <PropsRoute
+                      path="/random"
+                      component={RandomRestaurants}
+                      restaurantsList={this.state.restaurantsList}                      
+                    />                    
+                  <PropsRoute
+                      path="/all"
+                      component={AllRestaurants}
+                      restaurantsList={this.state.restaurantsList}                      
                     />                    
                   </Switch>
                 </div>
