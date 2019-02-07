@@ -228,11 +228,6 @@ class App extends Component {
                 All
               </a>
             </li>
-            <li className="nav-item">            
-              <a className={this.setActiveClass("showNewRestaurants")} name="showNewRestaurants" onClick={e => this.handleClick(e)}>
-                New
-              </a>
-            </li>
           </ul>
           <div className="container">
             <div className="row">

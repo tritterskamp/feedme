@@ -16,9 +16,6 @@ class Home extends Component {
       case "showAllRestaurants" :
         return <AllRestaurants restaurantsList={this.props.restaurantsList} />
       break;
-      case "showNewRestaurants" :
-        return <AllRestaurants showNew={true} restaurantsList={this.props.restaurantsList} />
-      break;
       case "showRandomRestaurants" :
         return <RandomRestaurants restaurantsList={this.props.restaurantsList} />
       break;
