@@ -47,7 +47,6 @@ class App extends Component {
     this.updateRestaurant = this.updateRestaurant.bind(this);
     this.removeSpecial = this.removeSpecial.bind(this);
     this.updateSpecial = this.updateSpecial.bind(this);
-    this.setActiveClass = this.setActiveClass.bind(this);
     this.login = this.login.bind(this); 
     this.logout = this.logout.bind(this); 
 
@@ -140,14 +139,6 @@ class App extends Component {
     this.setState({ weeklySpecials });
   }
 
-  setActiveClass(name) {
-    if (this.state.activeButton === name) {
-      return "active nav-link";
-    } else {
-      return "nav-link"
-    }
-  }
-
   logout() {
     auth.signOut()
     .then(() => {
@@ -156,6 +147,7 @@ class App extends Component {
       });
     });
   }
+
   login() {
     auth.signInWithRedirect(provider) 
       .then((result) => {
@@ -165,8 +157,6 @@ class App extends Component {
         });
       });
   }
-
-  
 
   render() {
     let logoutButton;
@@ -204,17 +194,17 @@ class App extends Component {
           {/* Navigation tabs: */}
           <ul className="nav nav-tabs">
             <li className="nav-item">
-              <NavLink className={this.setActiveClass("showTodaysSpecials")} to="/specials">
+              <NavLink className="nav-link" to="/specials">
                 Specials
               </NavLink>
             </li>
             <li className="nav-item">            
-              <NavLink className={this.setActiveClass("showRandomRestaurants")} to="/random">
+              <NavLink className="nav-link" to="/random">
                 Random
               </NavLink>
             </li>
             <li className="nav-item">            
-              <NavLink className={this.setActiveClass("showAllRestaurants")} to="/all">
+              <NavLink className="nav-link" to="/all">
                 All
               </NavLink>
             </li>
