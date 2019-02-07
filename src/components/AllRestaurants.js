@@ -10,14 +10,32 @@ class AllRestaurants extends Component {
         - make the details of each restaurant editable
     */
 
-    render() {
-        
-        const restaurantsList = sortAlphabetically(this.props.restaurantsList, "restaurantName");
+    returnRestaurants(restaurantsList) {
+        if(this.props.status === 'new') {
+            return Object.keys(restaurantsList).filter(key => restaurantsList[key].haveVisited === 'false');
+        } else if (this.props.status === 'not new') {
+            return Object.keys(restaurantsList).filter(key => restaurantsList[key].haveVisited === 'true');
+        } else {
+            return Object.keys(restaurantsList);
+        }
+    }
 
+    filterRestaurants(restaurantsList) {
+        return (
+            <div className="filter-by">Filter by:</div>
+        )
+
+    }
+
+    render() {
+        const restaurantsList = sortAlphabetically(this.props.restaurantsList, "restaurantName");
         // Build an array of our list of restaurants keys and then render the output
         return <div className="all-restaurants">
+
+            {this.filterRestaurants()}
+
             {Object.keys(restaurantsList).length > 0 ? (
-                Object.keys(restaurantsList).map(key =>
+                this.returnRestaurants(restaurantsList).map(key =>
                     <Restaurant key={key} restaurant={restaurantsList[key]} />
               )
             ) : (
