@@ -164,7 +164,7 @@ class App extends Component {
       logoutButton = <button className="btn btn-secondary d-lg-inline-block" onClick={this.logout}>Log Out</button>;
     }
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="/restaurant-picker">
         <div className="App">
           {/* Primary navigation */}
           <nav className="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar justify-content-between">
